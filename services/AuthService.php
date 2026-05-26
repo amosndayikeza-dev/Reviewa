@@ -28,7 +28,7 @@ class AuthService {
         if (!isset($user['password']) || !password_verify($password, $user['password'])) {
             return false;
         }
-        if (isset($user['active']) && !$user['active']) {
+        if ((isset($user['active']) && !$user['active']) || (isset($user['is_active']) && !$user['is_active'])) {
             return false;
         }
 
@@ -44,6 +44,7 @@ class AuthService {
             'email' => $user['email'],
             'role' => $user['role'] ?? null,
             'departmentId' => $departementId,
+            'departement_id' => $departementId,
             'firstName' => $user['first_name'] ?? null,
             'lastName' => $user['last_name'] ?? null,
         ];
@@ -83,8 +84,13 @@ class AuthService {
     }
 
     public function getUserDepartementId(): ?int {
-        return $this->isAuthenticated() ? ($_SESSION['user']['departement_id'] ?? null) : null;
+        return $this->isAuthenticated() ? ($_SESSION['user']['departementId'] ?? $_SESSION['user']['departement_id'] ?? null) : null;
     }
+
+
+    /*public function getUserDepartementId(): ?int {
+        return $this->getUserDepartementId();
+    }*/
 
     public function isAdmin(): bool {
         return $this->hasRole('admin');

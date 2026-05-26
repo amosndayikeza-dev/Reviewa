@@ -29,7 +29,7 @@ Class UserDAO extends DAO {
         $params = [];
 
         if ($active !== null) {
-            $sql .= " WHERE active = ?";
+            $sql .= " WHERE is_active = ?";
             $params[] = $active ? 1 : 0;
         }
 
@@ -62,18 +62,18 @@ Class UserDAO extends DAO {
     /**
      * Récupère les utilisateurs avec leurs départements et postes.
      *
-     * @param int|null $departmentId
+     * @param int|null $departementId
      * @return array
      */
-    public function getUsersWithEmployeeInfo($departmentId = null) {
+    public function getUsersWithEmployeeInfo($departementId = null) {
         $sql = "SELECT u.*, e.departement_id, e.position, e.salary, e.hired_at
                 FROM {$this->table} u
                 LEFT JOIN employees e ON u.id = e.user_id";
         $params = [];
 
-        if ($departmentId !== null) {
+        if ($departementId !== null) {
             $sql .= " WHERE e.departement_id = ?";
-            $params[] = $departmentId;
+            $params[] = $departementId;
         }
 
         return $this->db->fetchAll($sql, $params);
