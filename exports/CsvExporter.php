@@ -13,7 +13,8 @@ class CsvExporter {
      */
     public static function toCsv(array $rows, array $headers = null, string $delimiter = ',') : string {
         if (empty($rows)) {
-            return '';
+            // return UTF-8 BOM only so Excel recognizes encoding even for empty files
+            return "\xEF\xBB\xBF";
         }
 
         // Determine headers from first row if not provided
@@ -36,6 +37,7 @@ class CsvExporter {
         rewind($out);
         $csv = stream_get_contents($out);
         fclose($out);
-        return $csv;
+        // prepend UTF-8 BOM to help Excel detect UTF-8 encoding
+        return "\xEF\xBB\xBF" . $csv;
     }
 }

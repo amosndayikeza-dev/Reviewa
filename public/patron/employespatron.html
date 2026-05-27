@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1000saveurs</title>
+    <link rel="icon" href="../assets/images/icons/abonnes.png">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/notification.css">
+    <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
+    <link rel="stylesheet" href="../assets/css/responsiveStyles.css">
+    <link rel="stylesheet" href="../assets/fonts/feather/feather.css">
+    <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="containerAll">
+        <!-- partie gauche -->
+        <div class="containerLeft" id="container-left">
+            <div class="tft-icon-round-petit tft-p-absolute tft-top-5 tft-right-10 tft-bg-black3" onclick="hideSidebar()" id="icon-sidebar">
+                <i class="fas fa-arrow-right"></i>
+            </div>
+            <div class="c-left-header">
+                <a href="./dashboardpatron.php">
+                    <div class="tft-logo-avatar tft-bdr-greensav-1">
+                        <img src="../assets/images/icons/abonnes.png" alt="">
+                    </div>
+                </a>
+                <div class="app-title">
+                    <h1 class="app-name">1000<span>Saveurs</span></h1>
+                </div>
+            </div>
+            <div class="menu">
+                <div class="c-left-menu">
+                    <a href="./dashboardpatron.php">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round" onclick="showSidebar()">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <p class="option-name">Dashboard</p>
+                        </div>
+                    </a>
+                    <a href="./departementspatron.php">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-sitemap"></i>
+                            </div>
+                            <p class="option-name">Départements</p>
+                        </div>
+                    </a>
+                    <div class="repport">
+                        <div class="c-left-option tft-br-5-5-0-0 tft-p-relative">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <p class="option-name">Rapports</p>
+                            <div class="tft-chevron-icon tft-p-absolute tft-top-15 tft-right-5" onclick="showRepportOptions()">
+                                <i class="fas fa-chevron-down tft-clr-gris1"></i>
+                            </div>
+                        </div>
+                        <div class="repport-options" id="repport-options">
+                            <a href="./salespatron.html" class="repport-title">
+                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
+                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
+                                </div>
+                                <p class="tft-title4">Ventes</p>
+                            </a>
+                            <a href="./repportdebtspatron.html" class="repport-title">
+                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
+                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
+                                </div>
+                                <p class="tft-title4">Dettes</p>
+                            </a>
+                            <a href="./repportsalarypatron.html" class="repport-title">
+                                <div class="tft-icon-round-petit tft-bdr-greensav-1">
+                                    <i class="fas fa-chart-bar tft-clr-greensav"></i>
+                                </div>
+                                <p class="tft-title4">Salaires</p>
+                            </a>
+                        </div>
+                    </div>
+                    <a href="./employespatron.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <p class="option-name">Employés</p>
+                        </div>
+                    </a>
+                    <a href="./stockpatron.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <p class="option-name">Stock</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="user-option">
+                    <div class="tft-avatar-profil-petit tft-bdr-orangesav-2 tft-cursor-pointer" onclick="showContainerRight()">
+                        <img src="../assets/images/icons/femme.jpg" alt="">
+                    </div>
+                    <div class="user-infos">
+                        <div class="user-name">
+                            <h2 id="userName" class="tft-title4 tft-fw-600"> Chargement</h2>
+                            <p id="userRole" class="tft-sm-title1">Patronne</p>
+                        </div>
+                        <div class="tft-icon-carre-moyen tft-bg-black3 tft-transition" onclick="deconnectionModal()">
+                            <i class="fe fe-log-out tft-clr-red"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- partie centre -->
+        <div class="containerCenter">
+            <div class="c-center-header">
+                <h2 class="tft-title1 tft-fw-600 tft-center tft-gap-10px">
+                    <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    Les employés</h2>
+                <div class="header-aside">
+                    <div class="tft-search-withIcon">
+                        <input type="search" placeholder="Rechercher" class="tft-clr-white3">
+                        <div class="tft-search-withIcon-icon tft-bg-greensav">
+                            <i class="fas fa-search tft-clr-remain-white tft-fw-600"></i>
+                        </div>
+                    </div>
+                    <!-- <div class="tft-users tft-bdr-gris-1" id="tft-users">
+                        <div class="tft-users-pics"  id="tft-users-pics">
+                            <div class="tft-user-pic tft-bdr-greensav-1">
+                                <img src="../assets/images/icons/femme.png">
+                            </div>
+                            <div class="tft-user-pic tft-bdr-greensav-1">
+                                <img src="../assets/images/icons/femme.png">
+                            </div>
+                            <div class="tft-user-pic tft-bdr-greensav-1">
+                                <img src="../assets/images/icons/femme.png">
+                            </div>
+                            <div class="tft-user-pic tft-bdr-greensav-1">
+                                <img src="../assets/images/icons/femme.png">
+                            </div>
+                            <div class="tft-user-pic tft-bdr-greensav-1">
+                                <p class="tft-clr-white3">+15</p>
+                            </div>
+                        </div>
+                        <h4 class="tft-sm-title1 tft-bg-black1" id="user-desc">Utilisateurs</h4>
+                    </div> -->
+                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3" onclick="showContainerRightNotification()">
+                        <i class="fas fa-bell tft-clr-greensav"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bdr-greensav-1 tft-bg-black3"  onclick="showContainerRightParametre()">
+                        <i class="fas fa-cog tft-clr-greensav"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bg-orangesav2" id="btn-light-mode" onclick="changeMode()">
+                        <i class="fas fa-moon tft-clr-white"></i>
+                    </div>
+                    <div class="tft-icon-carre-moyen tft-bg-orangesav2 tft-hidden" id="btn-dark-mode" onclick="changeMode()">
+                        <i class="fas fa-moon tft-clr-white"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="c-center-body">
+                <div class="products-header">
+                    <button class="tft-btn tft-bg-greensav tft-clr-remain-white tft-p-relative" id="filterButton" onclick="toggleFilterMenu()">
+                        Filtrer <i class="fas fa-stream"></i>
+                        <div class="tft-filters tft-p-absolute" id="filter-options" onmouseleave="hideFilterOptions()">
+                            <!-- Les options seront ajoutées ici -->
+                        </div>
+                    </button>
+                    <button class="tft-btn tft-bdr-greensav-1 tft-clr-white3 tft-hover-greensav" onclick="ajouterProduct()">
+                        <i class="fas fa-add"></i>ajouter un employé
+                    </button>
+                </div>
+                <div class="products-container">
+                    <table class="tft-table">
+                        <tr class="tft-b-bottom-gris">
+                            <th class="tft-title3">
+                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1" onclick="activeCheckboxAll(this)">
+                                    <i class="fas fa-check tft-clr-transparent "></i>
+                                </div>
+                            </th>
+                            <th class="tft-title3">Profil</th>
+                            <th class="tft-title3">Departement</th>
+                            <th class="tft-title3">Poste</th>
+                            <th class="tft-title3">Salaire</th>
+                            <th class="tft-title3">Date</th>
+                            <th class="tft-title3 ">Actions</th>
+                        </tr>
+                        <tbody id="employees-table-body">
+                        <!-- Les employés seront chargés ici -->
+                        </tbody>
+                    </table>
+                    <div class="tft-pagination">
+                        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
+                            <i class="fas fa-arrow-left tft-color-white"></i>
+                        </div>
+                        <ul class="tft-page-numbers">
+                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">1</li>
+                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">2</li>
+                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">3</li>
+                        </ul>
+                        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
+                            <i class="fas fa-arrow-right tft-color-white"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- partie droite ajoute la classe tft-show pour montrer-->
+        <div class="containerRight tft-p-relative" id="container-right">
+            <div class="tft-close-icon tft-p-absolute tft-top-15 tft-right-15 tft-hover-red" onclick="closeModalInfos()">
+                <i class="fas fa-times tft-clr-white3"></i>
+            </div>
+            <div class="admin-profil">
+                <div class="tft-avatar-profil-moyen2 tft-bdr-greensav-2">
+                    <img src="../assets/images/icons/femme.jpg">
+                </div>
+                <h4 class="tft-title4 tft-fw-600">Triphine Iribagiza</h4>
+                <p class="tft-sm-title1">Patronne</p>
+            </div>
+            <div class="admin-infos-container" id="profil-admin">
+                <div class="tft-w-100 tft-centre-tout tft-gap-20px tft-mt-10 infos-options">
+                    <div class="tft-icon-carre tft-bg-gris tft-bg-greensav" onclick="showProfil()" id="btn-show-profil">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="tft-icon-carre tft-bg-gris" onclick="showNotification()" id="btn-show-notification">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <div class="tft-icon-carre tft-bg-gris" onclick="showParametre()" id="btn-show-parametre">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                </div>
+                <div class="container-infos-user tft-show tft-mt-10" id="profil-modal">
+                    <div class="infos-container">
+                        <div class="infos-header">
+                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
+                                <i class="fas fa-user tft-clr-greensav"></i>
+                            </div>
+                            <h3 class="tft-title3">Les informations du Profil</h3>
+                        </div>
+                        <div class="infos-details">
+                            <div class="info-titre">
+                                <div class="info-icon tft-bg-orangesav2">
+                                    <i class="fe fe-mail tft-clr-white"></i>
+                                </div>
+                                <p class="tft-clr-white3 tft-title4">Email</p>
+                            </div>
+                            <p class="tft-text-start tft-opacity-7">lania@gmail.com</p>
+                        </div>
+                        <div class="infos-details">
+                            <div class="info-titre">
+                                <div class="info-icon tft-bg-orangesav2">
+                                    <i class="fe fe-phone tft-clr-white"></i>
+                                </div>
+                                <p class="tft-clr-white3 tft-title4">Telephone</p>
+                            </div>
+                            <p class="tft-text-start tft-opacity-7">+257 68 90 81 32</p>
+                        </div>
+                        <div class="infos-details">
+                            <div class="info-titre">
+                                <div class="info-icon tft-bg-orangesav2">
+                                    <i class="fe fe-users tft-clr-white"></i>
+                                </div>
+                                <p class="tft-clr-white3 tft-title4">Genre</p>
+                            </div>
+                            <p class="tft-text-start tft-opacity-7">masculin</p>
+                        </div>
+                        <div class="infos-details">
+                            <div class="info-titre">
+                                <div class="info-icon tft-bg-orangesav2">
+                                    <i class="fe fe-calendar tft-clr-white"></i>
+                                </div>
+                                <p class="tft-clr-white3 tft-title4">Naissance</p>
+                            </div>
+                            <p class="tft-text-start tft-opacity-7">16-11-2025</p>
+                        </div>
+                        <div class="infos-details">
+                            <div class="info-titre">
+                                <div class="info-icon tft-bg-orangesav2">
+                                    <i class="fe fe-map-pin tft-clr-white"></i>
+                                </div>
+                                <p class="tft-clr-white3 tft-title4">Adresse</p>
+                            </div>
+                            <p class="tft-text-start tft-opacity-7">Burundi</p>
+                        </div>
+                    </div>
+                    <div class="infos-buttons tft-mt-10">
+                        <div class="infos-button tft-bg-greensav centre-tout tft-gap-5px">
+                            <i class="fe fe-edit tft-clr-remain-white"></i>
+                            <a href="#" class="tft-mt-2 tft-clr-remain-white">Editer</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-infos-user tft-mt-10" id="notification-modal">
+                    <div class="infos-container">
+                        <div class="infos-header">
+                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
+                                <i class="fas fa-bell tft-clr-greensav"></i>
+                            </div>
+                            <h3 class="tft-title3">Notifications</h3>
+                        </div>
+                        <div class="single-notification">
+                            <div class="title-notification">
+                                <h4 class="tft-title4">Rapport</h4>
+                                <p class="tft-sm-title2">2026-11-04</p>
+                            </div>
+                            <p class="tft-sm-title1">Lania Ishimwe</p>
+                        </div>
+                        <div class="single-notification">
+                            <div class="title-notification">
+                                <h4 class="tft-title4">Rapport</h4>
+                                <p class="tft-sm-title2">2026-11-04</p>
+                            </div>
+                            <p class="tft-sm-title1">Lania Ishimwe</p>
+                        </div>
+                        <div class="single-notification">
+                            <div class="title-notification">
+                                <h4 class="tft-title4">Rapport</h4>
+                                <p class="tft-sm-title2">2026-11-04</p>
+                            </div>
+                            <p class="tft-sm-title1">Lania Ishimwe</p>
+                        </div>
+                        <div class="single-notification">
+                            <div class="title-notification">
+                                <h4 class="tft-title4">Rapport</h4>
+                                <p class="tft-sm-title2">2026-11-04</p>
+                            </div>
+                            <p class="tft-sm-title1">Lania Ishimwe</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-infos-user tft-mt-10" id="parametre-modal">
+                    <div class="infos-container">
+                        <div class="infos-header">
+                            <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
+                                <i class="fas fa-cog tft-clr-greensav"></i>
+                            </div>
+                            <h3 class="tft-title3">Parametres</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- popup de deconnexion -->
+        <div class="tft-popup-modal tft-a-center" id="deconnection-modal">
+            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
+                <div class="deconnection-actions">
+                    <h3 class="tft-title1">Voulez-vous deconnecter ?</h3>
+                    <div class="deconnection-options">
+                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
+                        <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
+                    </div>
+                </div>
+                <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+            </div>
+        </div>
+        <!-- popup de deconnexion -->
+        <!-- =========================Popup pour supprimer=========== -->
+        <div class="tft-popup-modal tft-a-center" id="popup-modal-deleteElement">
+            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
+                <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">
+                    <i class="fas fa-times tft-clr-white3"></i>
+                </div>
+                <div class="deconnection-actions">
+                    <h3 class="tft-title2">Voulez-vous supprimer cet element ?</h3>
+                    <div class="deconnection-options">
+                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
+                        <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- =========================Popup pour supprimer=========== -->
+         <!-- popup d'ajouter un produit -->
+        <!-- popup d'ajouter un employé -->
+        <div class="tft-popup-modal" id="add-employee">
+            <div class="tft-popup-container-small tft-bg-remain-black3 tft-p-relative">
+                <h1 class="tft-title1 tft-mt-20 tft-clr-remain-white" id="employeeModalTitle">Ajouter un employé</h1>
+                <div class="tft-form-container">
+                    <form id="employeeForm" class="tft-gap-10px">
+                        <input type="hidden" id="employeeId" name="id">
+                        <input type="hidden" id="employee-departement-id" name="departementId">
+
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="employee-firstname" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user tft-clr-orangesav"></i></div>
+                                Prénom <span class="tft-clr-red">*</span>
+                            </label>
+                            <input type="text" class="tft-form-control" id="employee-firstname" placeholder="Prénom" required>
+                        </div>
+
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="employee-lastname" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user tft-clr-orangesav"></i></div>
+                                Nom <span class="tft-clr-red">*</span>
+                            </label>
+                            <input type="text" class="tft-form-control" id="employee-lastname" placeholder="Nom" required>
+                        </div>
+
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="employee-email" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-envelope tft-clr-orangesav"></i></div>
+                                Email <span class="tft-clr-red">*</span>
+                            </label>
+                            <input type="email" class="tft-form-control" id="employee-email" placeholder="exemple@email.com" required>
+                        </div>
+
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="employee-salary" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-money-bill tft-clr-orangesav"></i></div>
+                                Salaire
+                            </label>
+                            <input type="number" class="tft-form-control" id="employee-salary" placeholder="Salaire mensuel" min="0">
+                        </div>
+
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="employee-role" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-briefcase tft-clr-orangesav"></i></div>
+                                Poste
+                            </label>
+                            <select class="tft-form-control" id="employee-role">
+                                <option value="employe">Employé</option>
+                                <option value="manager">Manager</option>
+                                <option value="gerant">Gérant</option>
+                                <option value="caissier">Caissier</option>
+                            </select>
+                        </div>
+
+                        <div class="tft-form-group tft-gap-10px" id="employee-info-departement">
+                            <p class="tft-sm-title1 tft-clr-greensav">
+                                <i class="fas fa-info-circle"></i> L'employé sera affecté au département sélectionné dans le filtre.
+                            </p>
+                        </div>
+
+                        <div class="form-actions tft-flex tft-gap-20px tft-mt-20">
+                            <button type="submit" class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav">
+                                <i class="fas fa-save"></i> Enregistrer
+                            </button>
+                            <button type="button" class="tft-btn tft-bdr-gris-1 tft-clr-white tft-hover-orangesav" onclick="closeEmployeeModal()">
+                                <i class="fas fa-times"></i> Annuler
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeEmployeeModal()">
+                    <i class="fas fa-times tft-clr-remain-white3"></i>
+                </div>
+            </div>
+        </div>
+        <!-- popup d'ajouter un produit -->
+    </div>
+</body>
+<script src="../assets/js/scripts.js"></script>
+<script src="../assets/js/notifications.js"></script>
+<script src="../assets/js/notifications.js"></script>
+<script>
+    // ============================================================
+    // INITIALISATION
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadDepartementsForFilter();
+        loadEmployees();
+        initEmployeeForm();
+        initSearchListener();
+        attachPaginationEvents();
+        initFilterEvents();
+    });
+
+    // ============================================================
+    // VARIABLES GLOBALES
+    // ============================================================
+    let currentDepartementFilter = 'all';
+    let departementsList = [];
+    const ITEMS_PER_PAGE = 8;
+    let currentPage = 1;
+    let allEmployees = [];
+    let searchTerm = '';
+    let searchTimeout = null;
+
+    // ============================================================
+    // CHARGEMENT DES DÉPARTEMENTS
+    // ============================================================
+    // ============================================================
+
+    async function loadDepartementsForFilter() {
+        try {
+            const response = await fetch('http://localhost:8080/api/patron/departements/');
+            departementsList = await response.json();
+            console.log('Départements chargés:', departementsList);
+            
+            const filterOptions = document.getElementById('filter-options');
+            if (filterOptions) {
+                // Vider le contenu
+                filterOptions.innerHTML = '';
+                
+                // Ajouter "Tous les départements" en premier
+                const allOption = document.createElement('p');
+                allOption.className = 'tft-title4 tft-hover-greensav';
+                allOption.innerHTML = '📊 Tous les départements';
+                allOption.onclick = () => filterByDepartement('all');
+                allOption.style.cursor = 'pointer';
+                filterOptions.appendChild(allOption);
+                
+                // Ajouter chaque département
+                departementsList.forEach(dept => {
+                    const option = document.createElement('p');
+                    option.className = 'tft-title4 tft-hover-greensav';
+                    option.innerHTML = `🏢 ${dept.name}`;
+                    option.onclick = () => filterByDepartement(dept.id);
+                    option.style.cursor = 'pointer';
+                    filterOptions.appendChild(option);
+                });
+            }
+            
+            // ✅ NE PAS sélectionner de département par défaut pour l'affichage
+            // Laisser currentDepartementFilter = 'all' pour afficher tous les employés
+            
+            // Mettre à jour le texte du bouton
+            const filterBtn = document.querySelector('.products-header .tft-btn:first-child');
+            if (filterBtn) {
+                filterBtn.innerHTML = 'Filtrer <i class="fas fa-stream"></i>';
+            }
+            
+            // Charger tous les employés (sans filtre)
+            loadEmployees();
+            
+        } catch (error) {
+            console.error('Erreur:', error);
+            showError('Impossible de charger les départements');
+            loadEmployees();
+        }
+    }
+    // ============================================================
+    // FILTRAGE PAR DÉPARTEMENT
+    // ============================================================
+    // ============================================================
+    // FILTRAGE PAR DÉPARTEMENT (CORRIGÉ)
+    // ============================================================
+    function filterByDepartement(departementId) {
+        console.log('Filtrage par département:', departementId);
+        
+        // Mettre à jour le filtre
+        currentDepartementFilter = departementId;
+        currentPage = 1;
+        searchTerm = '';
+        
+        // Vider la recherche
+        const searchInput = document.querySelector('.tft-search-withIcon input');
+        if (searchInput) searchInput.value = '';
+        
+        // Mettre à jour le texte du bouton
+        const filterBtn = document.querySelector('.products-header .tft-btn:first-child');
+        if (filterBtn) {
+            if (departementId === 'all') {
+                filterBtn.innerHTML = 'Filtrer <i class="fas fa-stream"></i>';
+            } else {
+                const dept = departementsList.find(d => d.id == departementId);
+                filterBtn.innerHTML = `${dept?.name || 'Département'} <i class="fas fa-stream"></i>`;
+            }
+        }
+        
+        // Cacher le menu
+        hideFilterOptions();
+        
+        // Recharger les employés avec le nouveau filtre
+        loadEmployees();
+    }
+
+    // ============================================================
+    // CHARGEMENT DES EMPLOYÉS
+    // ============================================================
+    // ============================================================
+    // CHARGEMENT DES EMPLOYÉS (CORRIGÉ)
+    // ============================================================
+    async function loadEmployees() {
+        try {
+            let url = 'http://localhost:8080/api/patron/employees/';
+            
+            // Appliquer le filtre si un département est sélectionné (et pas 'all')
+            if (currentDepartementFilter && currentDepartementFilter !== 'all') {
+                url = `http://localhost:8080/api/patron/employees/?departement_id=${currentDepartementFilter}`;
+                console.log('Filtre appliqué: département', currentDepartementFilter);
+            } else {
+                console.log('Aucun filtre, tous les employés');
+            }
+            
+            console.log('Chargement URL:', url);
+            
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Erreur chargement');
+            
+            const data = await response.json();
+            allEmployees = Array.isArray(data) ? data : [];
+            console.log('Employés chargés:', allEmployees.length);
+            
+            currentPage = 1;
+            displayCurrentPage();
+            
+        } catch (error) {
+            console.error('Erreur:', error);
+            showError('Impossible de charger les employés');
+        }
+    }
+
+    // ============================================================
+    // AFFICHAGE DES EMPLOYÉS
+    // ============================================================
+    function displayEmployees(employees) {
+        // ✅ Créer le tbody s'il n'existe pas
+        let tbody = document.querySelector('#employees-table-body');
+        if (!tbody) {
+            const table = document.querySelector('.tft-table');
+            if (table) {
+                tbody = document.createElement('tbody');
+                tbody.id = 'employees-table-body';
+                table.appendChild(tbody);
+            }
+        }
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+        if (employees.length === 0) {
+            tbody.innerHTML = `</table><td colspan="7" style="text-align:center; padding:20px;">Aucun employé dans ce département</td></tr>`;
+            return;
+        }
+
+        employees.forEach(emp => {
+            const row = document.createElement('tr');
+            row.className = 'tft-b-bottom-gris';
+
+            const empId = emp.id || emp.userId;
+            const firstName = emp.firstName || emp.first_name || '';
+            const lastName = emp.lastName || emp.last_name || '';
+            const email = emp.email || '';
+            const deptName = getDepartementName(emp.departementId);
+            const role = emp.role || 'Employé';
+            const salary = emp.salary || 0;
+            const hireDate = emp.hireDate || emp.createdAt || '';
+
+            row.innerHTML = `
+                <td class="tft-title3 checkbox">
+                    <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
+                        <i class="fas fa-check tft-clr-transparent"></i>
+                    </div>
+                 </td>
+                <td class="tft-profile-td">
+                    <div class="tft-avatar-profil-petit table-profile">
+                        <img src="../assets/images/icons/homme.jpg">
+                    </div>
+                    <div class="tft-flex tft-flex-column tft-gap-2px">
+                        <h4 class="tft-sm-title1">${escapeHtml(firstName)} ${escapeHtml(lastName)}</h4>
+                        <p class="tft-sm-title2">${escapeHtml(email)}</p>
+                    </div>
+                 </td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(deptName)}</td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(role)}</td>
+                <td class="tft-title4 tft-clr-white3">${formatSalary(salary)}</td>
+                <td class="tft-title4 tft-clr-white3">${formatDate(hireDate)}</td>
+                <td class="tft-bdr-l-gris-1">
+                    <div class="actions">
+                        <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1" onclick="openEditEmployeeModal(${empId})">
+                            <i class="fe fe-edit tft-clr-greensav"></i>
+                        </div>
+                        <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1" onclick="deleteEmployee(${empId})">
+                            <i class="fe fe-trash delete-icon tft-clr-red"></i>
+                        </div>
+                    </div>
+                 </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    // ============================================================
+    // FONCTIONS UTILITAIRES
+    // ============================================================
+    function getDepartementName(deptId) {
+        if (!deptId) return 'Non assigné';
+        const dept = departementsList.find(d => d.id == deptId);
+        return dept ? dept.name : 'Non assigné';
+    }
+
+    function formatSalary(salary) {
+        if (!salary || salary === 0) return 'Non défini';
+        return salary.toLocaleString('fr-FR') + ' FBu';
+    }
+
+    function formatDate(dateString) {
+        if (!dateString) return 'Non renseignée';
+        try {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        } catch(e) {
+            return 'Date invalide';
+        }
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return text.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+    }
+
+    // ============================================================
+    // RECHERCHE
+    // ============================================================
+    function searchEmployees() {
+        const input = document.querySelector('.tft-search-withIcon input');
+        if (!input) return;
+        searchTerm = input.value.trim().toLowerCase();
+        currentPage = 1;
+
+        if (searchTerm === '') {
+            displayCurrentPage();
+            return;
+        }
+
+        const filtered = allEmployees.filter(emp => {
+            const firstName = (emp.firstName || emp.first_name || '').toLowerCase();
+            const lastName = (emp.lastName || emp.last_name || '').toLowerCase();
+            const email = (emp.email || '').toLowerCase();
+            const fullName = firstName + ' ' + lastName;
+            return fullName.includes(searchTerm) || email.includes(searchTerm);
+        });
+
+        if (filtered.length === 0) {
+            const tbody = document.getElementById('employees-table-body');
+            if (tbody) {
+                tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:40px;">
+                    <i class="fas fa-search" style="font-size:48px; color:#ff5722;"></i>
+                    <h3>Aucun employé trouvé</h3>
+                    <p>Ne correspond à "<strong>${escapeHtml(searchTerm)}</strong>"</p>
+                 </td></tr>`;
+            }
+            return;
+        }
+
+        displayEmployees(filtered);
+        updatePaginationWithTotal(filtered.length);
+    }
+
+    function initSearchListener() {
+        const input = document.querySelector('.tft-search-withIcon input');
+        if (input) {
+            input.addEventListener('input', () => {
+                if (searchTimeout) clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => searchEmployees(), 300);
+            });
+        }
+    }
+
+    // ============================================================
+    // PAGINATION
+    // ============================================================
+    function displayCurrentPage() {
+        if (searchTerm !== '') {
+            searchEmployees();
+            return;
+        }
+        const start = (currentPage - 1) * ITEMS_PER_PAGE;
+        const end = start + ITEMS_PER_PAGE;
+        displayEmployees(allEmployees.slice(start, end));
+        updatePaginationDisplay();
+    }
+
+    function nextPage() {
+        const total = searchTerm !== '' ?
+            allEmployees.filter(e => {
+                const name = (e.firstName || e.first_name || '').toLowerCase() + ' ' + (e.lastName || e.last_name || '').toLowerCase();
+                return name.includes(searchTerm);
+            }).length : allEmployees.length;
+        const maxPage = Math.ceil(total / ITEMS_PER_PAGE);
+        if (currentPage < maxPage) { currentPage++; displayCurrentPage(); }
+    }
+
+    function prevPage() {
+        if (currentPage > 1) { currentPage--; displayCurrentPage(); }
+    }
+
+    function goToPage(page) {
+        currentPage = page;
+        displayCurrentPage();
+    }
+
+    function updatePaginationDisplay() {
+        const totalPages = Math.ceil(allEmployees.length / ITEMS_PER_PAGE);
+        const container = document.querySelector('.tft-page-numbers');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (allEmployees.length <= ITEMS_PER_PAGE) {
+            const pagination = document.querySelector('.tft-pagination');
+            if (pagination) pagination.style.display = 'none';
+            return;
+        }
+
+        const pagination = document.querySelector('.tft-pagination');
+        if (pagination) pagination.style.display = 'flex';
+
+        let start = Math.max(1, currentPage - 2);
+        let end = Math.min(totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        for (let i = start; i <= end; i++) {
+            const li = document.createElement('li');
+            li.className = `tft-icon-carre-petit tft-clr-white3 tft-br-none ${i === currentPage ? 'tft-active-page' : ''}`;
+            li.textContent = i;
+            li.onclick = () => goToPage(i);
+            li.style.cursor = 'pointer';
+            container.appendChild(li);
+        }
+    }
+
+    function updatePaginationWithTotal(total) {
+        const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+        const container = document.querySelector('.tft-page-numbers');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (total <= ITEMS_PER_PAGE) {
+            const pagination = document.querySelector('.tft-pagination');
+            if (pagination) pagination.style.display = 'none';
+            return;
+        }
+
+        const pagination = document.querySelector('.tft-pagination');
+        if (pagination) pagination.style.display = 'flex';
+
+        let start = Math.max(1, currentPage - 2);
+        let end = Math.min(totalPages, start + 4);
+        if (end - start < 4) start = Math.max(1, end - 4);
+
+        for (let i = start; i <= end; i++) {
+            const li = document.createElement('li');
+            li.className = `tft-icon-carre-petit tft-clr-white3 tft-br-none ${i === currentPage ? 'tft-active-page' : ''}`;
+            li.textContent = i;
+            li.onclick = () => goToPage(i);
+            li.style.cursor = 'pointer';
+            container.appendChild(li);
+        }
+    }
+
+    // ============================================================
+    // CRUD EMPLOYÉS
+    // ============================================================
+    function ajouterProduct() {
+        resetEmployeeForm();
+        if (currentDepartementFilter && currentDepartementFilter !== 'all') {
+            const hiddenDept = document.getElementById('employee-departement-id');
+            if (hiddenDept) hiddenDept.value = currentDepartementFilter;
+            const dept = departementsList.find(d => d.id == currentDepartementFilter);
+            const infoDiv = document.getElementById('employee-info-departement');
+            if (infoDiv && dept) {
+                infoDiv.innerHTML = `<p class="tft-sm-title1 tft-clr-greensav"><i class="fas fa-info-circle"></i> Affecté au département : <strong>${dept.name}</strong></p>`;
+            }
+        } else {
+            showWarning('Veuillez d\'abord sélectionner un département dans le filtre.');
+            return;
+        }
+        document.getElementById('employeeModalTitle').textContent = 'Ajouter un employé';
+        document.getElementById('add-employee').style.display = 'flex';
+    }
+
+    async function openEditEmployeeModal(id) {
+        try {
+            const response = await fetch(`http://localhost:8080/api/patron/employees/${id}`);
+            if (!response.ok) throw new Error('Employé non trouvé');
+            const emp = await response.json();
+
+            document.getElementById('employeeId').value = emp.id || emp.userId;
+            document.getElementById('employee-firstname').value = emp.firstName || emp.first_name || '';
+            document.getElementById('employee-lastname').value = emp.lastName || emp.last_name || '';
+            document.getElementById('employee-email').value = emp.email || '';
+            document.getElementById('employee-salary').value = emp.salary || 0;
+            document.getElementById('employee-role').value = emp.role || 'employe';
+
+            const hiddenDept = document.getElementById('employee-departement-id');
+            if (hiddenDept) hiddenDept.value = emp.departementId;
+
+            const dept = departementsList.find(d => d.id == emp.departementId);
+            const infoDiv = document.getElementById('employee-info-departement');
+            if (infoDiv && dept) {
+                infoDiv.innerHTML = `<p class="tft-sm-title1 tft-clr-greensav"><i class="fas fa-info-circle"></i> Département : <strong>${dept.name}</strong></p>`;
+            }
+
+            document.getElementById('employeeModalTitle').textContent = 'Modifier l\'employé';
+            document.getElementById('add-employee').style.display = 'flex';
+        } catch (error) {
+            console.error('Erreur:', error);
+            showError('Impossible de charger les informations');
+        }
+    }
+
+    async function deleteEmployee(id) {
+        if (!confirm('Supprimer définitivement cet employé ?')) return;
+        try {
+            const response = await fetch(`http://localhost:8080/api/patron/employees/${id}`, { method: 'DELETE' });
+            if (!response.ok) throw new Error('Erreur suppression');
+            loadEmployees();
+            showSuccess('Employé supprimé avec succès');
+        } catch (error) {
+            showError('Erreur lors de la suppression');
+        }
+    }
+
+    function initEmployeeForm() {
+        const form = document.getElementById('employeeForm');
+        if (form) form.addEventListener('submit', submitEmployeeForm);
+    }
+
+    async function submitEmployeeForm(event) {
+        event.preventDefault();
+
+        const id = document.getElementById('employeeId').value;
+        const firstName = document.getElementById('employee-firstname').value.trim();
+        const lastName = document.getElementById('employee-lastname').value.trim();
+        const email = document.getElementById('employee-email').value.trim();
+        const salary = parseFloat(document.getElementById('employee-salary').value) || 0;
+        const role = document.getElementById('employee-role').value;
+        const hiddenDept = document.getElementById('employee-departement-id');
+        let departementId = hiddenDept ? parseInt(hiddenDept.value) : null;
+
+        if (!departementId && currentDepartementFilter && currentDepartementFilter !== 'all') {
+            departementId = currentDepartementFilter;
+        }
+
+        if (!firstName || !lastName || !email || !departementId) {
+            showError('Prénom, nom, email et département sont requis');
+            return;
+        }
+
+        const data = { firstName, lastName, email, salary, role, departementId };
+        const isEdit = id && id !== '';
+        const url = isEdit ? `http://localhost:8080/api/patron/employees/${id}` : 'http://localhost:8080/api/patron/employees/';
+        const method = isEdit ? 'PUT' : 'POST';
+
+        try {
+            const response = await fetch(url, {
+                method: method,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!response.ok) {
+                const err = await response.json();
+                throw new Error(err.error || 'Erreur');
+            }
+            showSuccess(isEdit ? 'Employé modifié' : 'Employé ajouté');
+            closeEmployeeModal();
+            loadEmployees();
+        } catch (error) {
+            console.error('Erreur:', error);
+            showError(error.message || 'Erreur lors de l\'enregistrement');
+        }
+    }
+
+    function resetEmployeeForm() {
+        document.getElementById('employeeForm').reset();
+        document.getElementById('employeeId').value = '';
+        const infoDiv = document.getElementById('employee-info-departement');
+        if (infoDiv) {
+            infoDiv.innerHTML = `<p class="tft-sm-title1 tft-clr-greensav"><i class="fas fa-info-circle"></i> L'employé sera affecté au département sélectionné dans le filtre.</p>`;
+        }
+    }
+
+    function closeEmployeeModal() {
+        document.getElementById('add-employee').style.display = 'none';
+        resetEmployeeForm();
+    }
+
+    // ============================================================
+    // AFFICHER/CACHER LE MENU FILTRE (AVEC LOGS)
+    // ============================================================
+    function showFilterOptions() {
+        console.log('showFilterOptions appelée');
+        const filterOptions = document.getElementById('filter-options');
+        if (filterOptions) {
+            filterOptions.style.display = 'block';
+            console.log('Menu affiché');
+        } else {
+            console.error('filter-options non trouvé');
+        }
+    }
+
+    function hideFilterOptions() {
+        const filterOptions = document.getElementById('filter-options');
+        if (filterOptions) {
+            filterOptions.style.display = 'none';
+        }
+    }
+
+    function hideFilterOptions() {
+        const filterOptions = document.getElementById('filter-options');
+        if (filterOptions) {
+            filterOptions.style.display = 'none';
+        }
+    }
+
+    function attachPaginationEvents() {
+        const prevBtn = document.querySelector('.tft-pagination .fa-arrow-left')?.parentElement;
+        const nextBtn = document.querySelector('.tft-pagination .fa-arrow-right')?.parentElement;
+        if (prevBtn) prevBtn.onclick = () => prevPage();
+        if (nextBtn) nextBtn.onclick = () => nextPage();
+    }
+
+    // ============================================================
+    // INITIALISER LES ÉVÉNEMENTS DU MENU FILTRE
+    // ============================================================
+    function initFilterEvents() {
+        const filterBtn = document.querySelector('.products-header .tft-btn:first-child');
+        const filterOptions = document.getElementById('filter-options');
+        
+        if (filterBtn && filterOptions) {
+            // Nettoyer les attributs onclick existants
+            filterBtn.onmouseenter = function() {
+                filterOptions.style.display = 'block';
+            };
+            
+            filterOptions.onmouseenter = function() {
+                filterOptions.style.display = 'block';
+            };
+            
+            filterOptions.onmouseleave = function() {
+                filterOptions.style.display = 'none';
+            };
+            
+            console.log('Événements du filtre initialisés');
+        } else {
+            console.error('Bouton ou menu filtre non trouvé');
+        }
+    }
+</script>
+
+
+
+</html>

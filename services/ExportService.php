@@ -2,6 +2,8 @@
 
 include_once __DIR__ . '/../daophp/SalesDAO.php';
 include_once __DIR__ . '/../daophp/UserDAO.php';
+include_once __DIR__ . '/../daophp/DebtsDAO.php';
+include_once __DIR__ . '/../daophp/Salary_reportsDAO.php';
 include_once __DIR__ . '/../exports/CsvExporter.php';
 include_once __DIR__ . '/../exports/ExcelExporter.php';
 include_once __DIR__ . '/AuthService.php';
@@ -13,10 +15,14 @@ class ExportService {
     protected $salesDao;
     protected $userDao;
     protected $auth;
+    protected $debtsDao;
+    protected $salaryDao;
 
     public function __construct() {
         $this->salesDao = new SalesDAO();
         $this->userDao = new UserDAO();
+        $this->debtsDao = new DebtsDAO();
+        $this->salaryDao = new Salary_reportsDAO();
         $this->auth = new AuthService();
     }
 
@@ -39,6 +45,41 @@ class ExportService {
      */
     public function getUsersData($departmentId = null) {
         return $this->userDao->getUsersWithEmployeeInfo($departmentId);
+    }
+
+    /**
+     * Récupère les dettes, filtrées par département ou status.
+     * @param int|null $departmentId
+     * @param string|null $status
+     * @param string|null $debtorType
+     * @return array
+     */
+    public function getDebtsData($departmentId = null, $status = null, $debtorType = null) {
+        if ($departmentId !== null) {
+            return $this->debtsDao->findByDepartement($departmentId, $status);
+        }
+        if ($status === 'unpaid' || $status === null) {
+            return $this->debtsDao->findUnpaid($debtorType, $status);
+        }
+        // fallback to all debts
+        return $this->debtsDao->findAll();
+    }
+
+    /**
+     * Récupère les rapports de salaire pour une période.
+     * @param int|null $year
+     * @param int|null $month
+     * @param int|null $departmentId
+     * @return array
+     */
+    public function getSalaryData($year = null, $month = null, $departmentId = null) {
+        if ($year !== null) {
+            return $this->salaryDao->findByPeriod($year, $month, $departmentId);
+        }
+        if ($departmentId !== null) {
+            return $this->salaryDao->findByDepartement($departmentId);
+        }
+        return $this->salaryDao->findAll();
     }
 
     /**

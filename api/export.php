@@ -41,12 +41,51 @@ switch ($action) {
         $rows = $exportService->getSalesData($startDate, $endDate, $departmentId);
         break;
 
+    case 'debts':
+        $status = $_GET['status'] ?? null; // unpaid/overdue/paid
+        $debtorType = $_GET['debtorType'] ?? null;
+        $rows = $exportService->getDebtsData($departmentId, $status, $debtorType);
+        break;
+
+    case 'salary':
+    case 'salaries':
+        $year = isset($_GET['year']) ? (int)$_GET['year'] : null;
+        $month = isset($_GET['month']) ? (int)$_GET['month'] : null;
+        $rows = $exportService->getSalaryData($year, $month, $departmentId);
+        break;
+
     case 'users':
         $rows = $exportService->getUsersData($departmentId);
         break;
 
     default:
         respond(400, ['status' => 'error', 'message' => 'Invalid action']);
+}
+
+// preview as simple HTML table for quick inspection in browser/Postman
+if (isset($_GET['preview']) && $_GET['preview'] === '1') {
+    header('Content-Type: text/html; charset=utf-8');
+    echo "<table border=1 cellpadding=6 cellspacing=0 style=border-collapse:collapse;>";
+    if (!empty($rows)) {
+        // headers
+        $first = reset($rows);
+        echo '<thead><tr>';
+        foreach (array_keys($first) as $h) {
+            echo '<th>' . htmlspecialchars($h) . '</th>';
+        }
+        echo '</tr></thead>';
+        echo '<tbody>';
+        foreach ($rows as $r) {
+            echo '<tr>';
+            foreach ($r as $c) {
+                echo '<td>' . htmlspecialchars((string)$c) . '</td>';
+            }
+            echo '</tr>';
+        }
+        echo '</tbody>';
+    }
+    echo '</table>';
+    exit;
 }
 
 if ($format === 'csv') {
