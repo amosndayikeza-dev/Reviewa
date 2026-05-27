@@ -436,7 +436,7 @@
 
     async function loadDashboardData() {
         try {
-            const response = await fetch('/api/dashboard.php');
+            const response = await fetch('/phptest/api/dashboard.php');
             if (!response.ok) throw new Error('Erreur chargement dashboard');
             const data = await response.json();
             console.log(data);
@@ -462,7 +462,7 @@
             }
             if (data.latestDepartement) {
                 document.getElementById('lastDepartement').innerText = data.latestDepartement.name;
-                document.getElementById('lastDepartementDate').innerText = data.recentDepartement.created_at;
+                document.getElementById('lastDepartementDate').innerText = data.latestDepartement.created_at;
             }
         } catch (error) {
             console.error('Erreur chargement dashboard :', error);
@@ -471,7 +471,7 @@
 
     async function loadUserInfo() {
         try {
-            const response = await fetch('/api/auth/me');
+            const response = await fetch('/phptest/api/auth/me');
             if (response.ok) {
                 const user = await response.json();
                 document.getElementById('userName').innerText = user.userName || 'Utilisateur';
@@ -484,8 +484,8 @@
 
     document.getElementById('logoutyes').addEventListener('click', async (e) => {
         e.preventDefault();
-        await fetch('/api/auth/logout', { method: 'POST' });
-        window.location.href = '/login.html';
+        await fetch('/phptest/api/auth/logout', { method: 'POST' });
+        window.location.href = '/phptest/public/login.php';
     });
 
     document.addEventListener('DOMContentLoaded', () => {
