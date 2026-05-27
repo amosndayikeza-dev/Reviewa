@@ -2,4 +2,4 @@
 # pour se connecter : http://localhost/phptest/public/login.html
 
 # et puis vous saisissez : emali : salo@gmail.com
-#                            password : salo123
+#                            password : sao123
