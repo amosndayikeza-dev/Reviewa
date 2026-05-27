@@ -6,17 +6,4 @@ define("USERNAME",'root');
 define('PASSWORD','');
 define('AP_VERSION','');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
