@@ -125,9 +125,20 @@ try {
     );
 
     $method = $_SERVER['REQUEST_METHOD'];
-    $resource = normalizeResource($_GET['resource'] ?? '');
+    $resourceInput = $_GET['resource'] ?? $_GET['ressource'] ?? '';
+    $resourceInput = trim((string)$resourceInput, '/');
+    $resource = normalizeResource($resourceInput);
     $id = $_GET['id'] ?? null;
     $action = normalizeResource($_GET['action'] ?? '');
+
+    // Compatibilite: accepte aussi /?resource=departements/3
+    if ($resource !== '' && strpos($resource, '/') !== false) {
+        [$resourceFromPath, $idFromPath] = array_pad(explode('/', $resource, 2), 2, null);
+        $resource = normalizeResource($resourceFromPath);
+        if ($id === null && $idFromPath !== null && $idFromPath !== '') {
+            $id = $idFromPath;
+        }
+    }
 
     $daoMap = [
         // ==================== UTILISATEURS & ACTEURS ====================
@@ -252,31 +263,122 @@ try {
         case 'employees':
             switch ($method) {
                 case 'GET':
+                    $departementId = $_GET['departement_id'] ?? $_GET['departementId'] ?? null;
+                    $departementId = ($departementId !== null && $departementId !== '') ? (int)$departementId : null;
                     if($id != null){
                             jsonResponse([
                             'success' => true,
-                            'data' => $dao->findById($id),
+                            'data' => safeCall(fn() => $dao->findByIdWithUser($id), $dao->findById($id)),
                         ]);
                     }else{
                         jsonResponse([
                             'success' => true,
-                            'data' => $dao->findAll(),
+                            'data' => safeCall(
+                                fn() => $dao->getEmployeesWithUser($departementId),
+                                ($departementId !== null ? $dao->findByDepartement($departementId) : $dao->findAll())
+                            ),
                         ]);
                     }
                     
                     break;
                 case 'POST':
                         $data = readJsonBody();
-                        $message = $dao->create($data);
+                        $departementId = (int)($data['departement_id'] ?? $data['departementId'] ?? 0);
+                        if ($departementId <= 0) {
+                            jsonResponse([
+                                'success' => false,
+                                'message' => 'Le departement est requis',
+                            ], 400);
+                        }
+
+                        $firstName = trim((string)($data['first_name'] ?? $data['firstName'] ?? ''));
+                        $lastName = trim((string)($data['last_name'] ?? $data['lastName'] ?? ''));
+                        $email = trim((string)($data['email'] ?? ''));
+                        if ($firstName === '' || $lastName === '' || $email === '') {
+                            jsonResponse([
+                                'success' => false,
+                                'message' => 'Prenom, nom et email sont requis',
+                            ], 400);
+                        }
+
+                        $role = trim((string)($data['role'] ?? 'employe'));
+                        $position = trim((string)($data['position'] ?? $role));
+                        $salary = (float)($data['salary'] ?? 0);
+                        $hiredAt = trim((string)($data['hired_at'] ?? $data['hiredAt'] ?? date('Y-m-d')));
+
+                        $userDao = loadDao('UserDAO');
+                        $userId = $userDao->create([
+                            'first_name' => $firstName,
+                            'last_name' => $lastName,
+                            'email' => $email,
+                            'password' => password_hash('12345678', PASSWORD_DEFAULT),
+                            'role' => $role,
+                            'is_active' => 1,
+                        ]);
+
+                        $message = $dao->create([
+                            'user_id' => (int)$userId,
+                            'departement_id' => $departementId,
+                            'position' => $position,
+                            'salary' => $salary,
+                            'hired_at' => $hiredAt,
+                        ]);
                         jsonResponse([
                             'success' => true,
                             'message' => 'Employé créé avec succès',
-                            'jsonResponse' => $message
+                            'jsonResponse' => $message,
+                            'employee_id' => $message,
+                            'user_id' => (int)$userId,
                         ]);
                     break;
                 case 'PUT':
                     $data = readJsonBody();
-                    $message = $dao->update($id, $data);
+                    $employee = $dao->findById($id);
+                    if (!$employee) {
+                        jsonResponse([
+                            'success' => false,
+                            'message' => 'Employe introuvable',
+                        ], 404);
+                    }
+
+                    $employeeData = [];
+                    if (isset($data['departement_id']) || isset($data['departementId'])) {
+                        $employeeData['departement_id'] = (int)($data['departement_id'] ?? $data['departementId']);
+                    }
+                    if (isset($data['position']) || isset($data['role'])) {
+                        $employeeData['position'] = trim((string)($data['position'] ?? $data['role']));
+                    }
+                    if (isset($data['salary'])) {
+                        $employeeData['salary'] = (float)$data['salary'];
+                    }
+                    if (isset($data['hired_at']) || isset($data['hiredAt'])) {
+                        $employeeData['hired_at'] = (string)($data['hired_at'] ?? $data['hiredAt']);
+                    }
+
+                    $message = 0;
+                    if (!empty($employeeData)) {
+                        $message = $dao->update($id, $employeeData);
+                    }
+
+                    $userData = [];
+                    if (isset($data['first_name']) || isset($data['firstName'])) {
+                        $userData['first_name'] = trim((string)($data['first_name'] ?? $data['firstName']));
+                    }
+                    if (isset($data['last_name']) || isset($data['lastName'])) {
+                        $userData['last_name'] = trim((string)($data['last_name'] ?? $data['lastName']));
+                    }
+                    if (isset($data['email'])) {
+                        $userData['email'] = trim((string)$data['email']);
+                    }
+                    if (isset($data['role'])) {
+                        $userData['role'] = trim((string)$data['role']);
+                    }
+
+                    if (!empty($userData)) {
+                        $userDao = loadDao('UserDAO');
+                        $userDao->update((int)$employee['user_id'], $userData);
+                    }
+
                     jsonResponse([
                         'success' => true,
                         'message' => 'Employé modifié avec succès',
@@ -385,7 +487,7 @@ try {
                         }else{
                         jsonResponse([
                             'success' => true,
-                            'data' => $dao->findAll(),
+                            'data' => safeCall(fn() => $dao->findAllWithManager(), $dao->findAll()),
                         ]);
                         }
                     
@@ -418,8 +520,9 @@ try {
                     $data = readJsonBody();
                     $message = $dao->update($id,$data);
                     jsonResponse([
-                        'succes' => true,
+                        'success' => true,
                         'message' => 'Departement modifie avec succes',
+                        'jsonResponse' => $message
                     ]);
                     
                     break;
@@ -428,7 +531,7 @@ try {
                 case 'DELETE':
                     $message = $dao->delete($id);
                     jsonResponse([
-                        'usses' => true,
+                        'success' => true,
                         'message' => 'Departement supprime avec succes',
                         'jsonResponse' => $message
                     ]);

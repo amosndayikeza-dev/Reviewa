@@ -1,9 +1,12 @@
+
+<!-- head debut-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1000saveurs</title>
+    <link rel="icon" href="../assets/images/icons/abonnes.png">
     <link rel="icon" href="../assets/images/icons/abonnes.png">
     <link rel="stylesheet" href="../assets/css/styles.css">
     <link rel="stylesheet" href="../assets/css/tft-configStyles.css">
@@ -12,9 +15,10 @@
     <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
+<!-- head fin-->
 <body>
     <div class="containerAll">
-        <!-- partie gauche -->
+        <!-- partie gauche debut-->
         <div class="containerLeft" id="container-left">
             <div class="tft-icon-round-petit tft-p-absolute tft-top-5 tft-right-10 tft-bg-black3" onclick="hideSidebar()" id="icon-sidebar">
                 <i class="fas fa-arrow-right"></i>
@@ -58,7 +62,7 @@
                             </div>
                         </div>
                         <div class="repport-options" id="repport-options">
-                            <a href="./salespatron.html" class="repport-title tft-hover-greensav">
+                            <a href="./salespatron.html" class="repport-title">
                                 <div class="tft-icon-round-petit tft-bdr-greensav-1">
                                     <i class="fas fa-chart-bar tft-clr-greensav"></i>
                                 </div>
@@ -111,6 +115,7 @@
                 </div>
             </div>
         </div>
+        <!-- partie gauche fin-->
         <!-- partie centre -->
         <div class="containerCenter">
             <div class="c-center-header">
@@ -118,7 +123,8 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Les employés</h2>
+                    Départements
+                </h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -160,220 +166,57 @@
                     </div>
                 </div>
             </div>
-            <div class="c-center-body">
-                <div class="products-header">
-                    <button class="tft-btn tft-bg-greensav tft-clr-remain-white tft-p-relative" onmouseenter="showFilterOptions()">
-                        Filtrer<i class="fas fa-stream"></i>
-                        <div class="tft-filters tft-p-absolute" id="filter-options" onmouseenter="showFilterOptions()" onmouseleave="hideFilterOptions()">
-                            <p class="tft-title4 tft-hover-greensav">Tous</p>
-                            <p class="tft-title4 tft-hover-greensav">Les employés</p>
-                            <p class="tft-title4 tft-hover-greensav">Les gérants</p>
+            <div class="container_departements" id="container-departements">
+                <!-- <div class="departement">
+                    <p class="tft-sm-title2 tft-bg-black2" id="creation-date">Crée le 24-3-2026</p>
+                    <div class="departement-details">
+                        <h3 class="tft-title2 tft-clr-orangesav tft-a-self-center">Boucherie</h3>
+                        <p class="tft-sm-title1 tft-text-justify tft-w-100 tft-break-word tft-fs-15px tft-line-h-1-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quod ab dolor repudiandae nemo quia et alias animi</p>
+                    </div>
+                    <div class="departement-infos">
+                        <div class="manager-infos">
+                            <div class="departement-info-icon">
+                                <div class="tft-icon-round-moyen tft-bg-black2 tft-bdr-greensav-1 tft-cursor-pointer">
+                                    <i class="fas fa-user-tie tft-clr-greensav"></i>
+                                </div>
+                            </div>
+                            <div class="manager-name">
+                                <h4 class="tft-title4">Lania Ishimwe</h4>
+                                <p class="tft-sm-title1">Manager</p>
+                            </div>
                         </div>
-                    </button>
-                    <button class="tft-btn tft-bdr-greensav-1 tft-clr-white3 tft-hover-greensav" onclick="ajouterProduct()">
-                        <i class="fas fa-add"></i>ajouter un employé
-                    </button>
-                </div>
-                <div class="products-container">
-                    <table class="tft-table">
-                        <tr class="tft-b-bottom-gris">
-                            <th class="tft-title3">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1" onclick="activeCheckboxAll(this)">
-                                    <i class="fas fa-check tft-clr-transparent "></i>
+                        <div class="manager-infos">
+                            <div class="departement-info-icon">
+                                <div class="tft-icon-round-moyen tft-bg-black2 tft-bdr-greensav-1 tft-cursor-pointer">
+                                    <i class="fas fa-map-marker-alt tft-clr-greensav"></i>
                                 </div>
-                            </th>
-                            <th class="tft-title3">Profil</th>
-                            <th class="tft-title3">Departement</th>
-                            <th class="tft-title3">Poste</th>
-                            <th class="tft-title3">Salaire</th>
-                            <th class="tft-title3">Date</th>
-                            <th class="tft-title3 ">Actions</th>
-                        </tr>
-                        <tr class="tft-b-bottom-gris line-selected">
-                            <td class="tft-title3 checkbox">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                                    <i class="fas fa-check tft-clr-transparent "></i>
-                                </div>
-                            </td>
-                            <td class="tft-profile-td">
-                                <div class="tft-avatar-profil-petit table-profile">
-                                    <img src="../assets/images/icons/homme.jpg">
-                                </div>
-                                <div class="tft-flex tft-flex-column tft-gap-2px">
-                                    <h4 class="tft-sm-title1">Kalenga Marc</h4>
-                                    <p class="tft-sm-title2">lania@gmail.com</p>
-                                </div>
-                            </td>
-                            <td class="tft-title4 tft-clr-white3">Bar</td>
-                            <td class="tft-title4 tft-clr-white3">Gerant</td>
-                            <td class="tft-title4 tft-clr-white3">600000 fbu</td>
-                            <td class="tft-title4 tft-clr-white3">4-5-2026</td>
-                            <td class="tft-bdr-l-gris-1">
-                                <div class="actions">
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
-                                        <i class="fe fe-edit tft-clr-greensav"></i>
-                                    </div>
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1">
-                                        <i class="fe fe-trash delete-icon tft-clr-red" onclick="popupdeleteElement()"></i>
-                                    </div>
-                                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
-                                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="tft-b-bottom-gris">
-                            <td class="tft-title3 checkbox">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                                    <i class="fas fa-check tft-clr-transparent "></i>
-                                </div>
-                            </td>
-                            <td class="tft-profile-td">
-                                <div class="tft-avatar-profil-petit table-profile">
-                                    <img src="../assets/images/icons/homme.jpg">
-                                </div>
-                                <div class="tft-flex tft-flex-column tft-gap-2px">
-                                    <h4 class="tft-sm-title1">Kalenga Marc</h4>
-                                    <p class="tft-sm-title2">lania@gmail.com</p>
-                                </div>
-                            </td>
-                            <td class="tft-title4 tft-clr-white3">Bar</td>
-                            <td class="tft-title4 tft-clr-white3">Gerant</td>
-                            <td class="tft-title4 tft-clr-white3">600000 fbu</td>
-                            <td class="tft-title4 tft-clr-white3">4-5-2026</td>
-                            <td class="tft-bdr-l-gris-1">
-                                <div class="actions">
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
-                                        <i class="fe fe-edit tft-clr-greensav"></i>
-                                    </div>
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1">
-                                        <i class="fe fe-trash delete-icon tft-clr-red" onclick="popupdeleteElement()"></i>
-                                    </div>
-                                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
-                                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="tft-b-bottom-gris">
-                            <td class="tft-title3 checkbox">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                                    <i class="fas fa-check tft-clr-transparent "></i>
-                                </div>
-                            </td>
-                            <td class="tft-profile-td">
-                                <div class="tft-avatar-profil-petit table-profile">
-                                    <img src="../assets/images/icons/homme.jpg">
-                                </div>
-                                <div class="tft-flex tft-flex-column tft-gap-2px">
-                                    <h4 class="tft-sm-title1">Kalenga Marc</h4>
-                                    <p class="tft-sm-title2">lania@gmail.com</p>
-                                </div>
-                            </td>
-                            <td class="tft-title4 tft-clr-white3">Bar</td>
-                            <td class="tft-title4 tft-clr-white3">Gerant</td>
-                            <td class="tft-title4 tft-clr-white3">600000 fbu</td>
-                            <td class="tft-title4 tft-clr-white3">4-5-2026</td>
-                            <td class="tft-bdr-l-gris-1">
-                                <div class="actions">
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
-                                        <i class="fe fe-edit tft-clr-greensav"></i>
-                                    </div>
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1">
-                                        <i class="fe fe-trash delete-icon tft-clr-red" onclick="popupdeleteElement()"></i>
-                                    </div>
-                                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
-                                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="tft-b-bottom-gris">
-                            <td class="tft-title3 checkbox">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                                    <i class="fas fa-check tft-clr-transparent"></i>
-                                </div>
-                            </td>
-                            <td class="tft-profile-td">
-                                <div class="tft-avatar-profil-petit table-profile">
-                                    <img src="../assets/images/icons/homme.jpg">
-                                </div>
-                                <div class="tft-flex tft-flex-column tft-gap-2px">
-                                    <h4 class="tft-sm-title1">Kalenga Marc</h4>
-                                    <p class="tft-sm-title2">lania@gmail.com</p>
-                                </div>
-                            </td>
-                            <td class="tft-title4 tft-clr-white3">Bar</td>
-                            <td class="tft-title4 tft-clr-white3">Gerant</td>
-                            <td class="tft-title4 tft-clr-white3">600000 fbu</td>
-                            <td class="tft-title4 tft-clr-white3">4-5-2026</td>
-                            <td class="tft-bdr-l-gris-1">
-                                <div class="actions">
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
-                                        <i class="fe fe-edit tft-clr-greensav"></i>
-                                    </div>
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1">
-                                        <i class="fe fe-trash delete-icon tft-clr-red" onclick="popupdeleteElement()"></i>
-                                    </div>
-                                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
-                                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr class="tft-b-bottom-gris">
-                            <td class="tft-title3 checkbox">
-                                <div class="tft-checkbox tft-bg-remain-white3 tft-bdr-white-1 checkbox-icon" onclick="activeCheckbox(this)">
-                                    <i class="fas fa-check tft-clr-transparent "></i>
-                                </div>
-                            </td>
-                            <td class="tft-profile-td">
-                                <div class="tft-avatar-profil-petit table-profile">
-                                    <img src="../assets/images/icons/homme.jpg">
-                                </div>
-                                <div class="tft-flex tft-flex-column tft-gap-2px">
-                                    <h4 class="tft-sm-title1">Kalenga Marc</h4>
-                                    <p class="tft-sm-title2">lania@gmail.com</p>
-                                </div>
-                            </td>
-                            <td class="tft-title4 tft-clr-white3">Bar</td>
-                            <td class="tft-title4 tft-clr-white3">Gerant</td>
-                            <td class="tft-title4 tft-clr-white3">600000 fbu</td>
-                            <td class="tft-title4 tft-clr-white3">4-5-2026</td>
-                            <td class="tft-bdr-l-gris-1">
-                                <div class="actions">
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-greensav-1">
-                                        <i class="fe fe-edit tft-clr-greensav"></i>
-                                    </div>
-                                    <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-red-txt-1">
-                                        <i class="fe fe-trash delete-icon tft-clr-red" onclick="popupdeleteElement()"></i>
-                                    </div>
-                                    <!-- <div class="tft-icon-round-petit tft-bg-black2 tft-bdr-gris-1 active-icon-parent" onclick="activeDesactiveElement(this)">
-                                        <i class="fas fa-toggle-off active-icon tft-clr-gris1"></i>
-                                    </div> -->
-                                </div>
-                            </td>
-                        </tr>
-                        
-                    </table>
-                    <div class="tft-pagination">
-                        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
-                            <i class="fas fa-arrow-left tft-color-white"></i>
-                        </div>
-                        <ul class="tft-page-numbers">
-                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">1</li>
-                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">2</li>
-                            <li class="tft-icon-carre-petit tft-clr-white3 tft-br-none">3</li>
-                        </ul>
-                        <div class="tft-icon-round-moyen tft-bdr-greensav-1 tft-hover-greensav">
-                            <i class="fas fa-arrow-right tft-color-white"></i>
+                            </div>
+                            <div class="manager-name">
+                                <h4 class="tft-title4">Rohero 2</h4>
+                                <p class="tft-sm-title1">Adresse</p>
+                            </div>
                         </div>
                     </div>
+                    <div class="departement-btns">
+                        <a class="tft-btn" href="#">
+                            Editer
+                        </a>
+                        <button class="tft-btn">Supprimer</button>
+                    </div>
+                </div> -->
+                <!--<div class="departement">
                 </div>
+                <div class="departement">
+                </div>-->
+                <!-- <div class="departement" id="btn-ajouter-departement">
+                    <div class="tft-icon-round-grand tft-bg-greensav" onclick="ajouterDepartement()">
+                        <i class="fas fa-plus tft-clr-remain-white"></i>
+                    </div>
+                    <p class="tft-title2">Ajouter un département</p>
+                </div> -->
             </div>
         </div>
-        <!-- partie droite ajoute la classe tft-show pour montrer-->
+        <!-- partie droite ajoute la classe active pour montrer debut-->
         <div class="containerRight tft-p-relative" id="container-right">
             <div class="tft-close-icon tft-p-absolute tft-top-15 tft-right-15 tft-hover-red" onclick="closeModalInfos()">
                 <i class="fas fa-times tft-clr-white3"></i>
@@ -508,86 +351,343 @@
                 </div>
             </div>
         </div>
+        <!-- partie droite ajoute la classe active pour montrer fin-->
         <!-- popup de deconnexion -->
         <div class="tft-popup-modal tft-a-center" id="deconnection-modal">
-            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
-                <div class="deconnection-actions">
-                    <h3 class="tft-title1">Voulez-vous deconnecter ?</h3>
-                    <div class="deconnection-options">
-                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
-                        <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
-                    </div>
-                </div>
-                <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeModal()">
-                    <i class="fas fa-times tft-clr-white3"></i>
-                </div>
-            </div>
-        </div>
-        <!-- popup de deconnexion -->
-        <!-- =========================Popup pour supprimer=========== -->
-        <div class="tft-popup-modal tft-a-center" id="popup-modal-deleteElement">
-            <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
-                <div class="tft-close-icon tft-hover-red tft-p-absolute tft-top-5 tft-right-10" onclick="closeModal()">
-                    <i class="fas fa-times tft-clr-white3"></i>
-                </div>
-                <div class="deconnection-actions">
-                    <h3 class="tft-title2">Voulez-vous supprimer cet element ?</h3>
-                    <div class="deconnection-options">
-                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
-                        <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- =========================Popup pour supprimer=========== -->
-         <!-- popup d'ajouter un produit -->
-         <div class="tft-popup-modal" id="add-product">
             <div class="tft-popup-container-small tft-bg-remain-black3 tft-p-relative">
-                <h1 class="tft-title1 tft-mt-20 tft-clr-remain-white" id="modalTitle">Ajouter un nouveau produit</h1>
-                <div class="tft-form-container">
-                    <form id="productForm" class="tft-gap-10px">
-                        <input type="hidden" id="productId" name="id">
-                        <div class="tft-form-group tft-gap-10px">
-                            <label for="nom-product" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
-                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user tft-clr-orangesav"></i></div>
-                                Nom du produit <span>*</span>
-                            </label>
-                            <input type="text" class="tft-form-control" id="nom-product" name="name" placeholder="Tapez le nom du produit ici..." required>
-                        </div>
-                        <div class="tft-form-group tft-gap-10px">
-                            <label for="description-product" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
-                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-edit tft-clr-orangesav"></i></div>
-                                Description <span>*</span>
-                            </label>
-                            <textarea class="tft-form-control" id="description-product" name="description" placeholder="Tapez la description ici..." required></textarea>
-                        </div>
-                        <div class="tft-form-group tft-gap-10px">
-                            <label for="price-product" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
-                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-map-marker-alt tft-clr-orangesav"></i></div>
-                                Prix unitaire
-                            </label>
-                            <input type="number" class="tft-form-control" id="price-product" name="price" placeholder="Le prix unitaire..." min="100">
-                        </div>
-                        <div class="tft-form-group tft-gap-10px">
-                            <label for="stock-product" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
-                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user-tie tft-clr-orangesav"></i></div>
-                                Stock
-                            </label>
-                            <input type="number" class="tft-form-control" id="stock-product" name="stock" placeholder="Le stock..." min="1">
-                        </div>
-                        <div class="form-actions tft-flex tft-gap-20px tft-mt-20">
-                            <button type="submit" class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav">Enregistrer</button>
-                            <button type="button" class="tft-btn tft-bdr-gris-1 tft-clr-white tft-hover-orangesav" onclick="closeModal()">Annuler</button>
-                        </div>
-                    </form>
+                <div class="deconnection-actions">
+                    <h3 class="tft-title1 tft-clr-remain-white">Voulez-vous deconnecter ?</h3>
+                    <div class="deconnection-options">
+                        <a class="tft-btn tft-bg-red tft-clr-remain-white" href="#">Oui</a>
+                        <btn class="tft-btn tft-bg-greensav tft-clr-remain-white" onclick="closeModal()">Non</btn>
+                    </div>
                 </div>
                 <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeModal()">
                     <i class="fas fa-times tft-clr-remain-white3"></i>
                 </div>
             </div>
         </div>
-        <!-- popup d'ajouter un produit -->
+        <!-- popup de deconnexion -->
+        <!-- popup d'ajouter le departement -->
+        <div class="tft-popup-modal" id="add-departement">
+            <div class="tft-popup-container-small tft-bg-remain-black3 tft-p-relative">
+                <h1 class="tft-title1 tft-mt-20 tft-clr-remain-white" id="modalTitle">Ajouter un nouveau département</h1>
+                <div class="tft-form-container">
+                    <form id="departementForm" class="tft-gap-10px">
+                        <input type="hidden" id="deptId" name="id">
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="nom-departement" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user tft-clr-orangesav"></i></div>
+                                Nom du département <span>*</span>
+                            </label>
+                            <input type="text" class="tft-form-control" id="nom-departement" name="name" placeholder="Tapez le nom ici..." required>
+                        </div>
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="description-departement" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-edit tft-clr-orangesav"></i></div>
+                                Description <span>*</span>
+                            </label>
+                            <textarea class="tft-form-control" id="description-departement" name="description" placeholder="Tapez la description ici..." required></textarea>
+                        </div>
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="address-departement" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-map-marker-alt tft-clr-orangesav"></i></div>
+                                Adresse
+                            </label>
+                            <input type="text" class="tft-form-control" id="address-departement" name="address" placeholder="Adresse">
+                        </div>
+                        <div class="tft-form-group tft-gap-10px">
+                            <label for="manager-id" class="tft-form-label tft-clr-remain-white tft-flex tft-gap-8px tft-a-center">
+                                <div class="tft-icon-round-moyen tft-bdr-orangesav-1"><i class="fas fa-user-tie tft-clr-orangesav"></i></div>
+                                Gérant
+                            </label>
+                            <select id="manager-id" name="manager_id" class="tft-form-control">
+                                <option value="">-- Aucun --</option>
+                            </select>
+                        </div>
+                        <div class="form-actions tft-flex tft-gap-20px tft-mt-20">
+                            <button type="submit" class="tft-btn tft-bdr-orangesav-1 tft-clr-orangesav tft-hover-orangesav">Enregistrer</button>
+                            <button type="button" class="tft-btn tft-bdr-gris-1 tft-clr-white" onclick="closeModalForm()">Annuler</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="tft-close-icon tft-p-absolute tft-top-5 tft-right-10 tft-hover-red" onclick="closeModalForm()">
+                    <i class="fas fa-times tft-clr-remain-white3"></i>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="../assets/js/scripts.js"></script>
+    <script>
+        // ============================================================
+        // FERMETURE DES MODALES
+        // ============================================================
+        function closeModal() {
+            document.getElementById('deconnection-modal').style.display = 'none';
+        }
+
+        function deconnectionModal() {
+            document.getElementById('deconnection-modal').style.display = 'flex';
+        }
+
+        function closeModalForm() {
+            document.getElementById('add-departement').style.display = 'none';
+            document.getElementById('departementForm').reset();
+            document.getElementById('deptId').value = '';
+        }
+
+        function openAddModal() {
+            document.getElementById('modalTitle').innerText = 'Ajouter un département';
+            document.getElementById('departementForm').reset();
+            document.getElementById('deptId').value = '';
+            document.getElementById('add-departement').style.display = 'flex';
+        }
+
+        function openEditModal(id, name, description, address, managerId) {
+            document.getElementById('modalTitle').innerText = 'Modifier le département';
+            document.getElementById('deptId').value = id;
+            document.getElementById('nom-departement').value = name;
+            document.getElementById('description-departement').value = description || '';
+            document.getElementById('address-departement').value = address || '';
+            const select = document.getElementById('manager-id');
+            if (select) select.value = managerId || '';
+            document.getElementById('add-departement').style.display = 'flex';
+        }
+
+        // ============================================================
+        // CHARGER LES DÉPARTEMENTS DEPUIS L'API
+        // ============================================================
+       // ============================================================
+// CHARGER LES DÉPARTEMENTS DEPUIS L'API
+// ============================================================
+async function loadDepartements() {
+    try {
+        const response = await fetch('/1000saveursproject/api/index.php?ressource=departements');
+
+        if (!response.ok) {
+            throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
+        const result = await response.json();
+        const departments = result.data || [];  // ← CORRECTION: utilisez "departments"
+        const container = document.getElementById('container-departements');
+
+        if (!container) {
+            console.error('Conteneur non trouvé');
+            return;
+        }
+
+        container.innerHTML = '';
+
+        if (departments.length === 0) {  // ← CORRECTION: "departments" au lieu de "departements"
+            container.innerHTML = '<div class="error"><p>Aucun département trouvé</p></div>';
+            return;
+        }
+
+        departments.forEach(dept => {  // ← CORRECTION: "departments" au lieu de "departements"
+            const card = document.createElement('div');
+            card.className = 'departement';
+
+            let createdAt = 'Date inconnue';
+            if (dept.createdAt) {
+                const match = dept.createdAt.match(/(\d{4})-(\d{2})-(\d{2})/);
+                if (match) createdAt = `${match[3]}/${match[2]}/${match[1]}`;
+            }
+
+            card.innerHTML = `
+                <p class="tft-sm-title2 tft-bg-black2" id="creation-date">Créé le ${createdAt}</p>
+                <div class="departement-details">
+                    <h3 class="tft-title2 tft-clr-orangesav tft-a-self-center">${escapeHtml(dept.name)}</h3>
+                    <p class="tft-sm-title1 tft-text-justify tft-w-100 tft-break-word tft-fs-15px tft-line-h-1-4">${escapeHtml(dept.description || 'Aucune description')}</p>
+                </div>
+                <div class="departement-infos">
+                    <div class="manager-infos">
+                        <div class="departement-info-icon">
+                            <div class="tft-icon-round-moyen tft-bg-black2 tft-bdr-greensav-1">
+                                <i class="fas fa-user-tie tft-clr-greensav"></i>
+                            </div>
+                        </div>
+                        <div class="manager-name">
+                            <h4 class="tft-title4">${escapeHtml(dept.managerName || 'Non assigné')}</h4>
+                            <p class="tft-sm-title1">Manager</p>
+                        </div>
+                    </div>
+                    <div class="manager-infos">
+                        <div class="departement-info-icon">
+                            <div class="tft-icon-round-moyen tft-bg-black2 tft-bdr-greensav-1">
+                                <i class="fas fa-map-marker-alt tft-clr-greensav"></i>
+                            </div>
+                        </div>
+                        <div class="manager-name">
+                            <h4 class="tft-title4">${escapeHtml(dept.address || 'Adresse non renseignée')}</h4>
+                            <p class="tft-sm-title1">Adresse</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="departement-btns">
+                    <button class="tft-btn edit-btn" data-id="${dept.id}" data-name="${escapeHtml(dept.name)}" data-desc="${escapeHtml(dept.description || '')}" data-addr="${escapeHtml(dept.address || '')}" data-mgr="${dept.managerId || ''}">Editer</button>
+                    <button class="tft-btn delete-btn" data-id="${dept.id}">Supprimer</button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+
+        const addCard = document.createElement('div');
+        addCard.className = 'departement';
+        addCard.id = 'btn-ajouter-departement';
+        addCard.innerHTML = `
+            <div class="tft-icon-round-grand tft-bg-greensav" onclick="openAddModal()">
+                <i class="fas fa-plus tft-clr-remain-white"></i>
+            </div>
+            <p class="tft-title2">Ajouter un département</p>
+        `;
+        container.appendChild(addCard);
+
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                openEditModal(btn.dataset.id, btn.dataset.name, btn.dataset.desc, btn.dataset.addr, btn.dataset.mgr);
+            });
+        });
+
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', async () => {
+                if (confirm('Supprimer définitivement ce département ?')) {
+                    try {
+                        const res = await fetch(`/1000saveursproject/api/index.php?ressource=departements/${btn.dataset.id}`, { method: 'DELETE' });
+                        if (res.ok) await loadDepartements();
+                        else alert('Erreur lors de la suppression');
+                    } catch (err) {
+                        console.error(err);
+                        alert('Erreur réseau');
+                    }
+                }
+            });
+        });
+
+    } catch (error) {
+        console.error('Erreur:', error);
+        const container = document.getElementById('container-departements');
+        if (container) {
+            container.innerHTML = `
+                <div class="error">
+                    <div class="tft-icon-carre-moyen tft-bg-red">
+                        <i class="fas fa-exclamation-triangle tft-clr-remain-white"></i>
+                    </div>
+                    <p class="tft-title1">Impossible de charger les départements</p>
+                    <p class="tft-sm-title1">Vérifiez que l'API est accessible</p>
+                </div>`;
+        }
+    }
+}
+
+
+        // ============================================================
+        // SÉCURITÉ : ÉVITER LES INJECTIONS XSS
+        // ============================================================
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        // ============================================================
+        // CHARGER LES EMPLOYÉS POUR LE SELECT DES GÉRANTS
+        // ============================================================
+        async function loadManagersSelect() {
+            try {
+                const response = await fetch('/1000saveursproject/api/index.php?ressource=employees/');
+                if (!response.ok) throw new Error('Erreur chargement employés');
+                const result = await response.json();
+                const employees = result.data || [];
+                const select = document.getElementById('manager-id');
+                if (!select) return;
+
+                select.innerHTML = '<option value="">-- Sélectionner un gérant --</option>';
+                employees.forEach(emp => {
+                    const fullName = `${emp.firstName || ''} ${emp.lastName || ''}`.trim();
+                    const option = document.createElement('option');
+                    option.value = emp.id;
+                    option.textContent = fullName || `Employé #${emp.id}`;
+                    select.appendChild(option);
+                });
+            } catch (error) {
+                console.error('Erreur chargement des employés:', error);
+            }
+        }
+
+        // ============================================================
+        // GESTION DU FORMULAIRE (AJOUT/MODIFICATION)
+        // ============================================================
+        document.getElementById('departementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById('deptId').value;
+            const payload = {
+                name: document.getElementById('nom-departement').value.trim(),
+                description: document.getElementById('description-departement').value.trim(),
+                address: document.getElementById('address-departement').value.trim(),
+                managerId: document.getElementById('manager-id').value ? parseInt(document.getElementById('manager-id').value) : null
+            };
+
+            const url = id ? `/1000saveursproject/api/index.php?ressource=departements/${id}` : '/1000saveursproject/api/index.php?ressource=departements/';
+            const method = id ? 'PUT' : 'POST';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const result = await response.json();
+                    alert(err.error || 'Erreur lors de l\'enregistrement');
+                } else {
+                    closeModalForm();
+                    await loadDepartements();
+                    alert(id ? 'Département modifié' : 'Département ajouté');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Erreur réseau');
+            }
+        });
+
+        // ============================================================
+        // AFFICHER LE NOM DE L'UTILISATEUR
+        // ============================================================
+            async function loadUserName() {
+                try {
+                    const response = await fetch('/1000saveursproject/api/auth/me');
+                    if (response.ok) {
+                        const user = await response.json();
+                        const userNameElement = document.getElementById('userName');
+                        if (userNameElement) {
+                            userNameElement.textContent = user.userName || user.firstName || 'Utilisateur';
+                        }
+                        const userRoleElement = document.getElementById('userRole');
+                        if (userRoleElement) {
+                            userRoleElement.textContent = user.role || 'Patron';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Erreur chargement utilisateur:', error);
+                }
+            }
+
+        // ============================================================
+        // INITIALISATION AU CHARGEMENT DE LA PAGE
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadDepartements();
+            loadManagersSelect();
+            loadUserName();
+        });
+
+    </script>
 </body>
-<script src="../assets/js/scripts.js"></script>
 </html>

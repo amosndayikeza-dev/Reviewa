@@ -83,6 +83,18 @@ class ExportService {
     }
 
     /**
+     * Export des rapports de salaire sur une plage startDate/endDate (comparaison via year/month).
+     *
+     * @param string|null $startDate   YYYY-MM-DD
+     * @param string|null $endDate     YYYY-MM-DD
+     * @param int|null    $departmentId
+     * @return array
+     */
+    public function getSalaryDataByDateRange($startDate = null, $endDate = null, $departmentId = null) {
+        return $this->salaryDao->findByDateRangeWithDetails($startDate, $endDate, $departmentId);
+    }
+
+    /**
      * Export rows as CSV string
      * @param array $rows
      * @param array|null $headers

@@ -59,7 +59,7 @@ class EmployeeDAO extends DAO{
      * @return array
      */
     public function getEmployeesWithUser($departementId = null, $orderBy = null) {
-        $sql = "SELECT e.*, u.first_name, u.last_name, u.email, u.role, u.active
+        $sql = "SELECT e.*, u.first_name, u.last_name, u.email, u.role, u.is_active AS active
                 FROM {$this->table} e
                 LEFT JOIN users u ON e.user_id = u.id";
         $params = [];
@@ -73,6 +73,20 @@ class EmployeeDAO extends DAO{
         }
 
         return $this->db->fetchAll($sql, $params);
+    }
+
+    /**
+     * Récupère un employé avec les informations utilisateur.
+     *
+     * @param int $id
+     * @return array|null
+     */
+    public function findByIdWithUser($id) {
+        $sql = "SELECT e.*, u.first_name, u.last_name, u.email, u.role, u.is_active AS active
+                FROM {$this->table} e
+                LEFT JOIN users u ON e.user_id = u.id
+                WHERE e.{$this->primaryKey} = ?";
+        return $this->db->fetchOne($sql, [$id]);
     }
 
     /**
@@ -104,7 +118,7 @@ class EmployeeDAO extends DAO{
     public function calculateDepartementPayroll($departementId) {
         $sql = "SELECT COUNT(*) AS employeeCount, COALESCE(SUM(salary), 0) AS totalSalary, COALESCE(AVG(salary), 0) AS averageSalary
                 FROM {$this->table}
-                WHERE departementId = ?";
+                WHERE departement_id = ?";
         return $this->db->fetchOne($sql, [$departementId]);
     }
 

@@ -54,13 +54,19 @@ switch ($type) {
 
     case 'debt':
     case 'debts':
-        $data = $reportService->getDebtReport($departementId);
-        respond(200, ['status' => 'success', 'type' => 'debt', 'data' => $data]);
+        $debtStatus = $_GET['status'] ?? null; // unpaid | paid | overdue
+        $data    = $reportService->getDebtReport($departementId, $startDate, $endDate, $debtStatus);
+        $summary = $reportService->getDebtSummary($departementId, $startDate, $endDate, $debtStatus);
+        respond(200, ['status' => 'success', 'type' => 'debt', 'data' => $data, 'summary' => $summary]);
         break;
 
     case 'salary':
     case 'salary_report':
-        $data = $reportService->getSalaryReport($departementId, $year, $month);
+        if ($startDate !== null || $endDate !== null) {
+            $data = $reportService->getSalaryReportByDateRange($departementId, $startDate, $endDate);
+        } else {
+            $data = $reportService->getSalaryReport($departementId, $year, $month);
+        }
         respond(200, ['status' => 'success', 'type' => 'salary', 'data' => $data]);
         break;
 

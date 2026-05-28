@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            const response = await fetch('/phptest/api/auth.php?action=login', {
+            const response = await fetch('/1000saveursproject/api/auth.php?action=login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok && data.status === 'success') {
                 // Redirection selon le rôle
                 if (data.user && data.user.role === 'patron') {
-                    window.location.href = '/phptest/public/patron/dashboardpatron.php';
+                    window.location.href = '/1000saveursproject/public/patron/dashboardpatron.php';
                 } else if (data.user && data.user.role === 'manager') {
                     window.location.href = '/manager/dashboard.php';
                 } else if (data.user && data.user.role === 'admin') {

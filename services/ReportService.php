@@ -36,13 +36,29 @@ class ReportService {
     }
 
     /**
-     * Retourne un rapport de dettes liées à un département.
+     * Retourne un rapport de dettes avec filtre département, période et statut.
+     *
+     * @param int|null    $departementId
+     * @param string|null $startDate   YYYY-MM-DD
+     * @param string|null $endDate     YYYY-MM-DD
+     * @param string|null $status      unpaid | paid | overdue
+     * @return array
      */
-    public function getDebtReport($departementId = null) {
-        if ($departementId !== null) {
-            return $this->debtsDao->findByDepartement($departementId);
-        }
-        return $this->debtsDao->getDepartementDebtSummary();
+    public function getDebtReport($departementId = null, $startDate = null, $endDate = null, $status = null) {
+        return $this->debtsDao->findAllWithDetails($departementId, $startDate, $endDate, $status);
+    }
+
+    /**
+     * Retourne le résumé (totaux) des dettes avec les mêmes filtres.
+     *
+     * @param int|null    $departementId
+     * @param string|null $startDate
+     * @param string|null $endDate
+     * @param string|null $status
+     * @return array|null
+     */
+    public function getDebtSummary($departementId = null, $startDate = null, $endDate = null, $status = null) {
+        return $this->debtsDao->getSummaryFiltered($departementId, $startDate, $endDate, $status);
     }
 
     /**
@@ -50,9 +66,22 @@ class ReportService {
      */
     public function getSalaryReport($departementId = null, $year = null, $month = null) {
         if ($departementId !== null) {
-            return $this->salaryReportsDao->findByDepartement($departementId, $year, $month);
+            return $this->salaryReportsDao->findByDepartementWithDetails($departementId, $year, $month);
         }
-        return $this->salaryReportsDao->findByPeriod($year ?? date('Y'), $month ?? date('n'));
+        return $this->salaryReportsDao->findByPeriodWithDetails($year ?? date('Y'), $month ?? date('n'));
+    }
+
+    /**
+     * Retourne les rapports de salaire filtrés par période (startDate/endDate),
+     * avec détails (département + manager).
+     *
+     * @param int|null    $departementId
+     * @param string|null $startDate
+     * @param string|null $endDate
+     * @return array
+     */
+    public function getSalaryReportByDateRange($departementId = null, $startDate = null, $endDate = null) {
+        return $this->salaryReportsDao->findByDateRangeWithDetails($startDate, $endDate, $departementId);
     }
 
     /**

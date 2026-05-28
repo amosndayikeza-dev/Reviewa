@@ -3,8 +3,11 @@
 include_once "DAO.php";
 class DepartementDAO extends DAO{
 
-    protected $table = 'departements';
-    protected $primaryKey = 'id';
+   public function __construct() {
+        parent::__construct();
+        $this->table = 'departements';  // ← CRUCIAL : Définir le nom de la table
+        $this->primaryKey = 'id';
+    }
 
     // Méthodes spécifiques à l'entité Debts peuvent être ajoutées ici
 
@@ -17,7 +20,7 @@ class DepartementDAO extends DAO{
     public function findByIdWithManager($id) {
         $sql = "SELECT d.*, u.first_name AS managerFirstName, u.last_name AS managerLastName, u.email AS managerEmail
                 FROM {$this->table} d
-                LEFT JOIN users u ON d.managerId = u.id
+                LEFT JOIN users u ON d.manager_id = u.id
                 WHERE d.{$this->primaryKey} = ?";
         return $this->db->fetchOne($sql, [$id]);
     }
@@ -31,7 +34,7 @@ class DepartementDAO extends DAO{
     public function findAllWithManager($orderBy = null) {
         $sql = "SELECT d.*, u.first_name AS managerFirstName, u.last_name AS managerLastName, u.email AS managerEmail
                 FROM {$this->table} d
-                LEFT JOIN users u ON d.managerId = u.id";
+                LEFT JOIN users u ON d.manager_id = u.id";
         if ($orderBy) {
             $sql .= " ORDER BY {$orderBy}";
         }
@@ -76,7 +79,7 @@ class DepartementDAO extends DAO{
     public function getEmployees($departementId, $orderBy = null) {
         $sql = "SELECT e.*, u.first_name, u.last_name, u.email
                 FROM employees e
-                LEFT JOIN users u ON e.userId = u.id
+                LEFT JOIN users u ON e.user_id = u.id
                 WHERE e.departement_id = ?";
         if ($orderBy) {
             $sql .= " ORDER BY {$orderBy}";
@@ -217,7 +220,7 @@ class DepartementDAO extends DAO{
     public function calculatePayroll($departementId, $year = null, $month = null) {
         $sql = "SELECT COUNT(*) AS reportCount, COALESCE(SUM(total_salary), 0) AS totalSalary
                 FROM salary_reports
-                WHERE department_id = ?";
+                WHERE departement_id = ?";
         $params = [$departementId];
 
         if ($year !== null) {
@@ -252,7 +255,7 @@ class DepartementDAO extends DAO{
         $salaryReports = $this->calculatePayroll($departementId);
 
         return [
-            'department' => $departement,
+            'departement' => $departement,
             'employeesCount' => (int)$employeeCount['total'],
             'productsCount' => (int)$productCount['total'],
             'lowStockProductsCount' => (int)$lowStockCount['total'],
@@ -287,7 +290,10 @@ class DepartementDAO extends DAO{
         }
     }
 
+    
 }
+
+
 
 
 

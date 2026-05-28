@@ -138,6 +138,91 @@ class DebtsDAO extends DAO{
     }
 
     /**
+     * Récupère toutes les dettes avec les détails de vente, produit et département.
+     *
+     * @param int|null    $departementId  Filtre optionnel par département
+     * @param string|null $startDate      Date de début (YYYY-MM-DD)
+     * @param string|null $endDate        Date de fin (YYYY-MM-DD)
+     * @param string|null $status         Statut : unpaid | paid | overdue
+     * @return array
+     */
+    public function findAllWithDetails($departementId = null, $startDate = null, $endDate = null, $status = null) {
+        $sql = "SELECT d.*,
+                       si.product_name,
+                       si.quantity,
+                       si.unit_price,
+                       s.departement_id,
+                       s.created_at AS sale_date,
+                       dept.name    AS departement_name
+                FROM {$this->table} d
+                JOIN sale_items si  ON d.sale_item_id = si.id
+                JOIN sales s        ON si.sale_id = s.id
+                LEFT JOIN departements dept ON s.departement_id = dept.id
+                WHERE 1=1";
+        $params = [];
+
+        if ($departementId !== null) {
+            $sql .= " AND s.departement_id = ?";
+            $params[] = $departementId;
+        }
+        if ($startDate !== null) {
+            $sql .= " AND s.created_at >= ?";
+            $params[] = $startDate . ' 00:00:00';
+        }
+        if ($endDate !== null) {
+            $sql .= " AND s.created_at <= ?";
+            $params[] = $endDate . ' 23:59:59';
+        }
+        if ($status !== null) {
+            $sql .= " AND d.status = ?";
+            $params[] = $status;
+        }
+
+        $sql .= " ORDER BY d.created_at DESC";
+        return $this->db->fetchAll($sql, $params);
+    }
+
+    /**
+     * Résumé global des dettes avec filtre optionnel.
+     *
+     * @param int|null    $departementId
+     * @param string|null $startDate
+     * @param string|null $endDate
+     * @param string|null $status
+     * @return array|null
+     */
+    public function getSummaryFiltered($departementId = null, $startDate = null, $endDate = null, $status = null) {
+        $sql = "SELECT COUNT(d.id)                          AS totalDebts,
+                       COALESCE(SUM(d.amount), 0)          AS totalAmount,
+                       COALESCE(SUM(d.paid_amount), 0)     AS totalPaid,
+                       COALESCE(SUM(d.amount - d.paid_amount), 0) AS totalOutstanding
+                FROM {$this->table} d
+                JOIN sale_items si ON d.sale_item_id = si.id
+                JOIN sales s       ON si.sale_id = s.id
+                WHERE 1=1";
+        $params = [];
+
+        if ($departementId !== null) {
+            $sql .= " AND s.departement_id = ?";
+            $params[] = $departementId;
+        }
+        if ($startDate !== null) {
+            $sql .= " AND s.created_at >= ?";
+            $params[] = $startDate . ' 00:00:00';
+        }
+        if ($endDate !== null) {
+            $sql .= " AND s.created_at <= ?";
+            $params[] = $endDate . ' 23:59:59';
+        }
+        if ($status !== null) {
+            $sql .= " AND d.status = ?";
+            $params[] = $status;
+        }
+
+        return $this->db->fetchOne($sql, $params);
+    }
+
+    /**
      * Récupère un rapport de synthèse des dettes par département.
      *
      * @return array

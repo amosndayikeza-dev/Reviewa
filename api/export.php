@@ -49,9 +49,16 @@ switch ($action) {
 
     case 'salary':
     case 'salaries':
-        $year = isset($_GET['year']) ? (int)$_GET['year'] : null;
-        $month = isset($_GET['month']) ? (int)$_GET['month'] : null;
-        $rows = $exportService->getSalaryData($year, $month, $departmentId);
+        $startDate = $_GET['startDate'] ?? null;
+        $endDate   = $_GET['endDate'] ?? null;
+
+        if ($startDate !== null || $endDate !== null) {
+            $rows = $exportService->getSalaryDataByDateRange($startDate, $endDate, $departmentId);
+        } else {
+            $year = isset($_GET['year']) ? (int)$_GET['year'] : null;
+            $month = isset($_GET['month']) ? (int)$_GET['month'] : null;
+            $rows = $exportService->getSalaryData($year, $month, $departmentId);
+        }
         break;
 
     case 'users':
