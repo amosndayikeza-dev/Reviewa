@@ -1,0 +1,51 @@
+<div class="employees-container">
+    <h2>Liste des employés</h2>
+    <div class="table-responsive">
+        <table class="tft-table" id="employees-table">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Poste</th>
+                    <th>Date d'embauche</th>
+                    <th>Salaire</th>
+                </tr>
+            </thead>
+            <tbody id="employees-table-body">
+                <tr><td colspan="7" class="mgr-empty-hint">Chargement...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+async function loadEmployees() {
+    const tbody = document.getElementById('employees-table-body');
+    if (!tbody) return;
+    tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Chargement…</td></tr>';
+    try {
+        const res = await ManagerAPI.employees.list(); // Pas de filtre position
+        const list = res.data || [];
+        if (!list.length) {
+            tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint">Aucun employé trouvé</td></tr>';
+            return;
+        }
+        tbody.innerHTML = list.map(e => `
+            <tr>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(e.first_name || '')}</td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(e.last_name || '')}</td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(e.email || '')}</td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(e.phone || e.telephone || '—')}</td>
+                <td class="tft-title4 tft-clr-white3">${escapeHtml(e.position || '—')}</td>
+                <td class="tft-title4 tft-clr-white3">${fmtDate(e.hired_at || e.hire_date)}</td>
+                <td class="tft-title4 tft-clr-white3">${fmtMoney(e.salary)}</td>
+            </tr>
+        `).join('');
+    } catch (err) {
+        console.error(err);
+        tbody.innerHTML = '<tr><td colspan="7" class="mgr-empty-hint tft-clr-red">Erreur de chargement</td></tr>';
+    }
+}
+lo
+</script>

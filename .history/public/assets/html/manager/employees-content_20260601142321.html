@@ -1,0 +1,54 @@
+<div class="employees-container">
+    <h2>Liste des employés</h2>
+    <div class="table-responsive">
+        <table class="tft-table" id="employees-table">
+            <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Poste</th>
+                    <th>Date d'embauche</th>
+                    <th>Salaire</th>
+                </tr>
+            </thead>
+            <tbody id="employees-table-body">
+                <tr><td colspan="7" class="mgr-empty-hint">Chargement...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+function loadEmployees() {
+    if (typeof ManagerAPI !== 'undefined') {
+        ManagerAPI.employees.list()
+            .then(response => {
+                if (response && response.success) {
+                    const employees = response.data || [];
+                    const container = document.getElementById('employees-list');
+                    if (container) {
+                        if (employees.length === 0) {
+                            container.innerHTML = '<p>Aucun employé trouvé</p>';
+                        } else {
+                            container.innerHTML = employees.map(e => `
+                                <div class="employee-card">
+                                    <h4>${e.first_name || ''} ${e.last_name || ''}</h4>
+                                    <p>Email: ${e.email || '—'}</p>
+                                    <p>Téléphone: ${e.phone || '—'}</p>
+                                    <p>Département: ${e.position || '—'}</p>
+                                    <button class="btn-edit" onclick="editEmployee(${e.id})">Modifier</button>  
+                                    <button class="btn-delete" onclick="deleteEmployee(${e.id})">Supprimer</button> 
+                                </div>
+                            `).join('');
+                        }
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Erreur chargement employés:', error);
+            });
+    }
+}
+loadEmployees();
+</script>

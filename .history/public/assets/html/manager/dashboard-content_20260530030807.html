@@ -1,0 +1,96 @@
+<div class="mgr-dashboard">
+    <!-- Ligne des KPI -->
+    <div class="mgr-kpi-row">
+        <div class="mgr-kpi">
+            <div class="mgr-kpi-label">Ventes aujourd'hui</div>
+            <div class="mgr-kpi-value" id="salesDay">0 FBU</div>
+        </div>
+        <div class="mgr-kpi">
+            <div class="mgr-kpi-label">Produits</div>
+            <div class="mgr-kpi-value" id="productsCount">0</div>
+        </div>
+        <div class="mgr-kpi">
+            <div class="mgr-kpi-label">Employés</div>
+            <div class="mgr-kpi-value" id="employeesCount">0</div>
+        </div>
+        <div class="mgr-kpi">
+            <div class="mgr-kpi-label">Dettes impayées</div>
+            <div class="mgr-kpi-value" id="pendingDebts">0 FBU</div>
+        </div>
+    </div>
+
+    <!-- Bandeau récapitulatif -->
+    <div class="mgr-recovery-banner">
+        <div class="mgr-recovery-item">
+            Stock alerte <strong id="lowStockCount">0</strong>
+        </div>
+        <div class="mgr-recovery-item">
+            Recouvrement mensuel <strong id="recoveryMonth">0 FBU</strong>
+        </div>
+    </div>
+
+    <!-- Dernière vente -->
+    <div class="mgr-card">
+        <div class="mgr-card-title">
+            <i class="fas fa-receipt"></i> Dernière vente
+        </div>
+        <div id="lastSaleInfo">—</div>
+    </div>
+
+    <!-- ZONE DE DÉBOGAGE (à supprimer plus tard) -->
+    <div class="mgr-card" style="margin-top: 20px; background: #2d2d2d;">
+        <div class="mgr-card-title">
+            <i class="fas fa-bug"></i> Débogage
+        </div>
+        <div id="debug-output" style="font-size: 12px; font-family: monospace; white-space: pre-wrap; max-height: 200px; overflow: auto;"></div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        async function loadData() {
+            const debugDiv = document.getElementById('debug-output');
+            if (debugDiv) debugDiv.innerText = 'Chargement...';
+
+            if (typeof ManagerAPI === 'undefined') {
+                if (debugDiv) debugDiv.innerText = 'Erreur: ManagerAPI non défini';
+                return;
+            }
+
+            try {
+                const res = await ManagerAPI.dashboard();
+                if (debugDiv) debugDiv.innerText = 'Réponse brute:\n' + JSON.stringify(res, null, 2);
+
+                if (res && res.success) {
+                    const dataSource = res.ui || res.data || res;
+                    if (debugDiv) debugDiv.innerText += '\n\nSource utilisée: ' + (res.ui ? 'res.ui' : (res.data ? 'res.data' : 'res'));
+
+                    // Extraction avec fallback
+                    const salesDay = dataSource.salesDay || dataSource.dailyRevenue || 0;
+                    const productsCount = dataSource.productsCount || dataSource.totalProducts || 0;
+                    const employeesCount = dataSource.employeesCount || dataSource.totalEmployees || 0;
+                    const pendingDebts = dataSource.pendingDebts || dataSource.totalDebts || 0;
+                    const lowStockCount = dataSource.lowStockCount || dataSource.lowStock || 0;
+                    const recoveryMonth = dataSource.recoveryMonth || dataSource.monthRecovery || 0;
+
+                    document.getElementById('salesDay').innerText = salesDay + ' FBU';
+                    document.getElementById('productsCount').innerText = productsCount;
+                    document.getElementById('employeesCount').innerText = employeesCount;
+                    document.getElementById('pendingDebts').innerText = pendingDebts + ' FBU';
+                    document.getElementById('lowStockCount').innerText = lowStockCount;
+                    document.getElementById('recoveryMonth').innerText = recoveryMonth + ' FBU';
+
+                    const lastLabel = dataSource.lastSaleLabel || dataSource.lastSale || '—';
+                    const lastDate = dataSource.lastSaleDate || dataSource.saleDate || '';
+                    document.getElementById('lastSaleInfo').innerHTML = `<p>${lastLabel}</p><small>${lastDate}</small>`;
+                } else {
+                    if (debugDiv) debugDiv.innerText += '\n\nAPI non successful: ' + (res?.message || 'unknown');
+                }
+            } catch (err) {
+                console.error(err);
+                if (debugDiv) debugDiv.innerText = 'Erreur: ' + err.message;
+            }
+        }
+        loadData();
+    })();
+</script>

@@ -1,0 +1,39 @@
+<div id="global-modals-container"></div>
+<script>
+    window.showManagerModal = function(title, contentHtml, onConfirm) {
+        const modalId = 'mgr-modal-' + Date.now();
+        const modalHtml = `
+            <div class="mgr-modal-overlay" id="${modalId}">
+                <div class="mgr-modal" style="background: var(--tft-black2, #1a1d24); border-radius: 12px; max-width: 500px; width: 90%; padding: 20px;">
+                    <div class="mgr-modal-header" style="font-size: 18px; font-weight: bold; margin-bottom: 15px;">${title}</div>
+                    <div class="mgr-modal-body">${contentHtml}</div>
+                    <div class="mgr-modal-footer" style="margin-top: 20px; text-align: right; display: flex; gap: 10px; justify-content: flex-end;">
+                        <button class="tft-btn tft-bg-gris" onclick="closeManagerModal('${modalId}')">Annuler</button>
+                        <button class="tft-btn tft-bg-greensav" id="confirm-modal-btn">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        const container = document.getElementById('global-modals-container');
+        if (!container) return;
+        container.innerHTML = modalHtml;
+        const modalDiv = document.getElementById(modalId);
+        if (modalDiv && onConfirm) {
+            modalDiv.querySelector('#confirm-modal-btn').onclick = () => {
+                onConfirm();
+                closeManagerModal(modalId);
+            };
+        }
+    };
+    window.closeManagerModal = function(modalId) {
+        const el = document.getElementById(modalId);
+        if (el) el.remove();
+    };
+</script>
+<style>
+    .mgr-modal-overlay {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0,0,0,0.7); display: flex; align-items: center;
+        justify-content: center; z-index: 10000;
+    }
+</style>

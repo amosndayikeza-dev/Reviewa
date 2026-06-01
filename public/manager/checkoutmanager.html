@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,10 +12,11 @@
     <link rel="stylesheet" href="../assets/fonts/feather/feather.css">
     <link rel="stylesheet" href="../assets/font-awesome/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/manager.css">
 </head>
 <body>
     <div class="containerAll">
-        <!-- partie gauche -->
+        <!-- partie gauche debut-->
         <div class="containerLeft" id="container-left">
             <div class="tft-icon-round-petit tft-p-absolute tft-top-5 tft-right-10 tft-bg-black3" onclick="hideSidebar()" id="icon-sidebar">
                 <i class="fas fa-arrow-right"></i>
@@ -40,6 +42,14 @@
                             <p class="option-name">Dashboard</p>
                         </div>
                     </a>
+                    <a href="./salesmanager.html">
+                        <div class="c-left-option">
+                            <div class="tft-icon-round">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <p class="option-name">Ventes</p>
+                        </div>
+                    </a>
                     <div class="repport">
                         <div class="c-left-option tft-br-5-5-0-0 tft-p-relative">
                             <div class="tft-icon-round">
@@ -63,7 +73,7 @@
                                 </div>
                                 <p class="tft-title4">Dettes</p>
                             </a>
-                            <a href="./repportsalarymanager.html" class="repport-title">
+                            <a href="./repportsalary.html" class="repport-title">
                                 <div class="tft-icon-round-petit tft-bdr-greensav-1">
                                     <i class="fas fa-chart-bar tft-clr-greensav"></i>
                                 </div>
@@ -81,8 +91,8 @@
                     </a>
                     <a href="./stockmanager.html">
                         <div class="c-left-option">
-                            <div class="tft-icon-round" onclick="showSidebar()">
-                                <i class="fas fa-home"></i>
+                            <div class="tft-icon-round">
+                                <i class="fas fa-boxes"></i>
                             </div>
                             <p class="option-name">Stock</p>
                         </div>
@@ -104,6 +114,7 @@
                 </div>
             </div>
         </div>
+        <!-- partie gauche fin-->
         <!-- partie centre -->
         <div class="containerCenter">
             <div class="c-center-header">
@@ -111,7 +122,7 @@
                     <div class="tft-icon-carre tft-bdr-gris-1" onclick="showSidebar()">
                         <i class="fas fa-bars"></i>
                     </div>
-                    Les produits</h2>
+                    Caisse / Vente</h2>
                 <div class="header-aside">
                     <div class="tft-search-withIcon">
                         <input type="search" placeholder="Rechercher" class="tft-clr-white3">
@@ -133,18 +144,19 @@
                     </div>
                 </div>
             </div>
+            <div class="c-center-body" id="manager-page-root" data-manager-page="sales"></div>
         </div>
-        <!-- partie droite ajoute la classe tft-show pour montrer-->
+        <!-- partie droite ajoute la classe active pour montrer debut-->
         <div class="containerRight tft-p-relative" id="container-right">
             <div class="tft-close-icon tft-p-absolute tft-top-15 tft-right-15 tft-hover-red" onclick="closeModalInfos()">
                 <i class="fas fa-times tft-clr-white3"></i>
             </div>
             <div class="admin-profil">
                 <div class="tft-avatar-profil-moyen2 tft-bdr-greensav-2">
-                    <img src="../assets/images/icons/femme.jpg">
+                    <img src="../assets/images/user/femme.png">
                 </div>
                 <h4 class="tft-title4 tft-fw-600">Triphine Iribagiza</h4>
-                <p class="tft-sm-title1">Patronne</p>
+                <p class="tft-sm-title1">Manager</p>
             </div>
             <div class="admin-infos-container" id="profil-admin">
                 <div class="tft-w-100 tft-centre-tout tft-gap-20px tft-mt-10 infos-options">
@@ -269,13 +281,15 @@
                 </div>
             </div>
         </div>
+        <!-- partie droite ajoute la classe active pour montrer fin-->
+        <div id="manager-modals-root"></div>
         <!-- popup de deconnexion -->
         <div class="tft-popup-modal tft-a-center" id="deconnection-modal">
             <div class="tft-popup-container-small tft-bg-black3 tft-p-relative">
                 <div class="deconnection-actions">
                     <h3 class="tft-title1">Voulez-vous deconnecter ?</h3>
                     <div class="deconnection-options">
-                        <a class="tft-btn tft-bg-red tft-clr-white" href="#">Oui</a>
+                        <a class="tft-btn tft-bg-red tft-clr-white" href="#" id="logoutyes" >Oui</a>
                         <btn class="tft-btn tft-bg-greensav tft-clr-white" onclick="closeModal()">Non</btn>
                     </div>
                 </div>
@@ -287,5 +301,9 @@
         <!-- popup de deconnexion -->
     </div>
 </body>
+
+<script src="../assets/js/manager-api.js"></script>
+<script src="../assets/js/manager-ui.js"></script>
 <script src="../assets/js/scripts.js"></script>
+
 </html>
